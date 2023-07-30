@@ -5,12 +5,12 @@
 package com.myproject.repository;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  *
- * @author admin
+ * @author Thanh
  */
-public interface StatsRepository {
-    List<Object[]> statsRevenue(Map<String, String> params);
+public interface DepartmentRepository {
+    List<Object> getDepartment();
+    Object getDepartmentById(int id);
 }

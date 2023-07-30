@@ -4,11 +4,11 @@
  */
 package com.myproject.repository.impl;
 
-import com.myproject.pojo.Category;
-import com.myproject.repository.CategoryRepository;
+import com.myproject.repository.DepartmentRepository;
 import java.util.List;
-import javax.persistence.Query;
+import org.hibernate.CacheMode;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -16,20 +16,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author admin
+ * @author Thanh
  */
 @Repository
 @Transactional
-public class CategoryRepositoryImpl implements CategoryRepository {
+public class DepartmentRepositoryImpl implements DepartmentRepository{
 
     @Autowired
     private LocalSessionFactoryBean factory;
-
+    
     @Override
-    public List<Category> getCates() {
+    public List<Object> getDepartment() {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("From Category");
-        return q.getResultList();
+        Query q = s.createQuery("FROM Department");
+        
+        return q.getResultList();    
     }
 
+    @Override
+    public Object getDepartmentById(int i) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM Department WHERE id= :i");
+        q.setParameter("i",i);
+        return q.getSingleResult();
+    }
+    
 }

@@ -5,30 +5,34 @@
 package com.myproject.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
-@Table(name = "prod_tag")
+@Table(name = "livestream")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProdTag.findAll", query = "SELECT p FROM ProdTag p"),
-    @NamedQuery(name = "ProdTag.findById", query = "SELECT p FROM ProdTag p WHERE p.id = :id")})
-public class ProdTag implements Serializable {
+    @NamedQuery(name = "Livestream.findAll", query = "SELECT l FROM Livestream l"),
+    @NamedQuery(name = "Livestream.findById", query = "SELECT l FROM Livestream l WHERE l.id = :id"),
+    @NamedQuery(name = "Livestream.findByTitle", query = "SELECT l FROM Livestream l WHERE l.title = :title"),
+    @NamedQuery(name = "Livestream.findByContent", query = "SELECT l FROM Livestream l WHERE l.content = :content")})
+public class Livestream implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,17 +40,19 @@ public class ProdTag implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product productId;
-    @JoinColumn(name = "tag_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Tag tagId;
+    @Size(max = 45)
+    @Column(name = "title")
+    private String title;
+    @Size(max = 45)
+    @Column(name = "content")
+    private String content;
+    @OneToMany(mappedBy = "livestreamId")
+    private Set<Question> questionSet;
 
-    public ProdTag() {
+    public Livestream() {
     }
 
-    public ProdTag(Integer id) {
+    public Livestream(Integer id) {
         this.id = id;
     }
 
@@ -58,20 +64,29 @@ public class ProdTag implements Serializable {
         this.id = id;
     }
 
-    public Product getProductId() {
-        return productId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Tag getTagId() {
-        return tagId;
+    public String getContent() {
+        return content;
     }
 
-    public void setTagId(Tag tagId) {
-        this.tagId = tagId;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @XmlTransient
+    public Set<Question> getQuestionSet() {
+        return questionSet;
+    }
+
+    public void setQuestionSet(Set<Question> questionSet) {
+        this.questionSet = questionSet;
     }
 
     @Override
@@ -84,10 +99,10 @@ public class ProdTag implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProdTag)) {
+        if (!(object instanceof Livestream)) {
             return false;
         }
-        ProdTag other = (ProdTag) object;
+        Livestream other = (Livestream) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +111,7 @@ public class ProdTag implements Serializable {
 
     @Override
     public String toString() {
-        return "com.myproject.pojo.ProdTag[ id=" + id + " ]";
+        return "com.myproject.pojo.Livestream[ id=" + id + " ]";
     }
     
 }

@@ -4,53 +4,59 @@
  */
 package com.myproject.controllers;
 
-/**
- *
- * @author vbmho
- */
-import com.myproject.service.CategoryService;
-import com.myproject.service.ProductService;
-import java.text.NumberFormat;
-import java.util.Locale;
+import com.myproject.pojo.Typeoftrainning;
+import com.myproject.service.DepartmentService;
+import com.myproject.service.PostService;
+import com.myproject.service.TypeOfTrainningService;
 import java.util.Map;
-import javax.persistence.Query;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
- * @author admin
+ * @author Thanh
  */
 @Controller
+@ControllerAdvice
 @PropertySource("classpath:configs.properties")
 public class IndexController {
     @Autowired
-    private ProductService productService;
+    private TypeOfTrainningService typeService;
     @Autowired
-    private CategoryService cateService;
+    private PostService postService;
+    @Autowired
+    private DepartmentService departmentService;
     @Autowired
     private Environment env;
-    Locale vnd = new Locale("vi", "VN");
-    NumberFormat vietnamdongFormat = NumberFormat.getCurrencyInstance(vnd);
-    
     
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("categories", this.cateService.getCates());
-        model.addAttribute("products", this.productService.getProducts(params));
-        
-        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-        int count = this.productService.countProducts();
-        model.addAttribute("counter", Math.ceil(count*1.0/pageSize));
-        
+        model.addAttribute("types", this.typeService.getTypeOfTrainning());
+        model.addAttribute("post_1", this.postService.getPostByType("1"));
+        model.addAttribute("post_2", this.postService.getPostByType("2"));
+        model.addAttribute("post_3", this.postService.getPostByType("3"));
+        model.addAttribute("post_4", this.postService.getPostByType("4"));
+        model.addAttribute("post_5", this.postService.getPostByType("5"));
         return "index";
     }
+    
+    @RequestMapping("/departments")
+    public String department(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("departments", this.departmentService.getDepartment());
+        return "department";
+    }
+    
+    @RequestMapping("/post_index")
+    public String postIndex(Model model, @RequestParam Map<String, String> params) {
+        String id = params.get("typeoftrainningId").toString();
+        model.addAttribute("posts", this.postService.getPostByType(id));
+        return "post_index";
+    }
+    
 }

@@ -6,22 +6,24 @@ package com.myproject.configs;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 public class DispatcherServletInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {
-            HibernateConfig.class
+            HibernateConfig.class,
+            TilesConfig.class
         };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{
+        return new Class[] {
             WebAppContextConfig.class
         };
     }
@@ -30,4 +32,5 @@ public class DispatcherServletInit extends AbstractAnnotationConfigDispatcherSer
     protected String[] getServletMappings() {
         return new String[] { "/" };
     }
+    
 }

@@ -7,7 +7,6 @@ package com.myproject.pojo;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,24 +16,22 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
-@Table(name = "category")
+@Table(name = "typeoftrainning")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
-    @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id"),
-    @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name"),
-    @NamedQuery(name = "Category.findByDescription", query = "SELECT c FROM Category c WHERE c.description = :description")})
-public class Category implements Serializable {
+    @NamedQuery(name = "Typeoftrainning.findAll", query = "SELECT t FROM Typeoftrainning t"),
+    @NamedQuery(name = "Typeoftrainning.findById", query = "SELECT t FROM Typeoftrainning t WHERE t.id = :id"),
+    @NamedQuery(name = "Typeoftrainning.findByName", query = "SELECT t FROM Typeoftrainning t WHERE t.name = :name")})
+public class Typeoftrainning implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,27 +39,19 @@ public class Category implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @Size(max = 255)
-    @Column(name = "description")
-    private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
-    private Set<Product> productSet;
+    @OneToMany(mappedBy = "typeoftrainningId")
+    private Set<Post> postSet;
+    @OneToMany(mappedBy = "typeoftrainningId")
+    private Set<Department> departmentSet;
 
-    public Category() {
+    public Typeoftrainning() {
     }
 
-    public Category(Integer id) {
+    public Typeoftrainning(Integer id) {
         this.id = id;
-    }
-
-    public Category(Integer id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Integer getId() {
@@ -81,21 +70,22 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    @XmlTransient
+    public Set<Post> getPostSet() {
+        return postSet;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPostSet(Set<Post> postSet) {
+        this.postSet = postSet;
     }
 
     @XmlTransient
-    public Set<Product> getProductSet() {
-        return productSet;
+    public Set<Department> getDepartmentSet() {
+        return departmentSet;
     }
 
-    public void setProductSet(Set<Product> productSet) {
-        this.productSet = productSet;
+    public void setDepartmentSet(Set<Department> departmentSet) {
+        this.departmentSet = departmentSet;
     }
 
     @Override
@@ -108,10 +98,10 @@ public class Category implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Category)) {
+        if (!(object instanceof Typeoftrainning)) {
             return false;
         }
-        Category other = (Category) object;
+        Typeoftrainning other = (Typeoftrainning) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -120,7 +110,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "com.myproject.pojo.Category[ id=" + id + " ]";
+        return "com.myproject.pojo.Typeoftrainning[ id=" + id + " ]";
     }
     
 }

@@ -4,7 +4,6 @@
  */
 package com.myproject.configs;
 
-
 import java.text.SimpleDateFormat;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,13 +11,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Configuration
 @EnableWebMvc
@@ -34,19 +35,28 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-
-    @Bean
-    public InternalResourceViewResolver internalResourceViewResolver() {
-        InternalResourceViewResolver r = new InternalResourceViewResolver();
-        r.setViewClass(JstlView.class);
-        r.setPrefix("/WEB-INF/pages/");
-        r.setSuffix(".jsp");
-
-        return r;
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/resources/images/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
     }
-
+    
+//    @Bean
+//    public InternalResourceViewResolver internalResourceViewResolver() {
+//        InternalResourceViewResolver r = new InternalResourceViewResolver();
+//        r.setViewClass(JstlView.class);
+//        r.setPrefix("/WEB-INF/pages/");
+//        r.setSuffix(".jsp");
+//        
+//        return r;
+//    }
+    
     @Bean
     public SimpleDateFormat simpleDateFormat() {
         return new SimpleDateFormat("yyyy-MM-dd");
     }
+    
+    
 }

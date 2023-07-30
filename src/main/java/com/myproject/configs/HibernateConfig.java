@@ -17,9 +17,10 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
+
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Configuration
 @PropertySource("classpath:databases.properties")
@@ -60,7 +61,7 @@ public class HibernateConfig {
         props.put(SHOW_SQL, env.getProperty("hibernate.showSql"));
         return props;
     }
-    
+
     @Bean
     public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager
@@ -70,4 +71,3 @@ public class HibernateConfig {
         return transactionManager;
     }
 }
-

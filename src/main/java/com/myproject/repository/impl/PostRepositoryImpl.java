@@ -4,16 +4,12 @@
  */
 package com.myproject.repository.impl;
 
-import com.myproject.pojo.*;
-import com.myproject.repository.StatsRepository;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.myproject.pojo.Post;
+import com.myproject.pojo.Typeoftrainning;
+import com.myproject.repository.PostRepository;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -27,32 +23,45 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author admin
+ * @author Thanh
  */
 @Repository
 @Transactional
-public class StatsRepositoryImpl implements StatsRepository {
-
+public class PostRepositoryImpl implements PostRepository{
+    
     @Autowired
-    private LocalSessionFactoryBean factory;
-    @Autowired
-    private SimpleDateFormat f;
-
-    public List<Object[]> statsRevenue(Map<String, String> params) {
-        Session session = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder b = session.getCriteriaBuilder();
-        CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
-        List<Predicate> predicates = new ArrayList<>();
+    LocalSessionFactoryBean factory;
+    
+    @Override
+    public List<Post> getPost() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM Post");
         
-        Root rType = q.from(Typeoftrainning.class);
-        Root rPost = q.from(Post.class);
-        q.multiselect(rType.get("name"), rType.get("id"));
-        q.multiselect(rPost.get("id"), rPost.get("title"), rPost.get("content"));
-//        
-        q.where(predicates.toArray(Predicate[]::new));
-        Query query = session.createQuery(q);
-        return query.getResultList();
-
+        return q.getResultList();
     }
 
+    @Override
+    public List<Object> getPostByType(String typeoftrainningId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
+        List<Predicate> predicates = new ArrayList<>();
+        Root rPost = q.from(Post.class);
+        q.select(rPost);
+        
+        Predicate p = b.equal(rPost.get("typeoftrainningId"), Integer.parseInt(typeoftrainningId));
+        predicates.add(p);
+        q.where(predicates.toArray(Predicate[]::new));
+        
+        Query query = s.createQuery(q);
+        return query.getResultList();
+    }
+
+    @Override
+    public Object getPostById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM Post WHERE id= :i");
+        q.setParameter("i",id);
+        return q.getSingleResult();
+    }
 }

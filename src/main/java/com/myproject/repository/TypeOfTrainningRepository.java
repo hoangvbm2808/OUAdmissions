@@ -4,13 +4,13 @@
  */
 package com.myproject.repository;
 
+import com.myproject.pojo.Typeoftrainning;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
- * @author admin
+ * @author Thanh
  */
-public interface StatsRepository {
-    List<Object[]> statsRevenue(Map<String, String> params);
+public interface TypeOfTrainningRepository {
+    List<Typeoftrainning> getTypeOfTrainning();
 }

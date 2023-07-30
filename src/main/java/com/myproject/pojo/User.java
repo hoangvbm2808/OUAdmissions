@@ -16,14 +16,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
 @Table(name = "user")
@@ -47,64 +46,41 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "first_name")
     private String firstName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "last_name")
     private String lastName;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "email")
     private String email;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "phone")
     private String phone;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "password")
     private String password;
     @Column(name = "active")
     private Boolean active;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
+    @Size(max = 45)
     @Column(name = "user_role")
     private String userRole;
     @OneToMany(mappedBy = "userId")
-    private Set<SaleOrder> saleOrderSet;
+    private Set<Question> questionSet;
+    @OneToMany(mappedBy = "userId")
+    private Set<Comment> commentSet;
 
     public User() {
     }
 
     public User(Integer id) {
         this.id = id;
-    }
-
-    public User(Integer id, String firstName, String lastName, String email, String phone, String username, String password, String userRole) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.username = username;
-        this.password = password;
-        this.userRole = userRole;
     }
 
     public Integer getId() {
@@ -180,12 +156,21 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Set<SaleOrder> getSaleOrderSet() {
-        return saleOrderSet;
+    public Set<Question> getQuestionSet() {
+        return questionSet;
     }
 
-    public void setSaleOrderSet(Set<SaleOrder> saleOrderSet) {
-        this.saleOrderSet = saleOrderSet;
+    public void setQuestionSet(Set<Question> questionSet) {
+        this.questionSet = questionSet;
+    }
+
+    @XmlTransient
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
     }
 
     @Override

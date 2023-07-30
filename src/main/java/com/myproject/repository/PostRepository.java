@@ -4,13 +4,15 @@
  */
 package com.myproject.repository;
 
+import com.myproject.pojo.Post;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
- * @author admin
+ * @author Thanh
  */
-public interface StatsRepository {
-    List<Object[]> statsRevenue(Map<String, String> params);
+public interface PostRepository {
+    List<Post> getPost();
+    List<Object> getPostByType(String typeoftrainningId);
+    Object getPostById(int id);
 }

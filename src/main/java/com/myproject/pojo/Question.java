@@ -16,21 +16,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
-@Table(name = "order_detail")
+@Table(name = "question")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OrderDetail.findAll", query = "SELECT o FROM OrderDetail o"),
-    @NamedQuery(name = "OrderDetail.findById", query = "SELECT o FROM OrderDetail o WHERE o.id = :id"),
-    @NamedQuery(name = "OrderDetail.findByUnitPrice", query = "SELECT o FROM OrderDetail o WHERE o.unitPrice = :unitPrice"),
-    @NamedQuery(name = "OrderDetail.findByNum", query = "SELECT o FROM OrderDetail o WHERE o.num = :num")})
-public class OrderDetail implements Serializable {
+    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
+    @NamedQuery(name = "Question.findById", query = "SELECT q FROM Question q WHERE q.id = :id"),
+    @NamedQuery(name = "Question.findByContent", query = "SELECT q FROM Question q WHERE q.content = :content")})
+public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,21 +38,20 @@ public class OrderDetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "unit_price")
-    private Long unitPrice;
-    @Column(name = "num")
-    private Integer num;
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product productId;
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private SaleOrder orderId;
+    @Size(max = 45)
+    @Column(name = "content")
+    private String content;
+    @JoinColumn(name = "livestream_id", referencedColumnName = "id")
+    @ManyToOne
+    private Livestream livestreamId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    private User userId;
 
-    public OrderDetail() {
+    public Question() {
     }
 
-    public OrderDetail(Integer id) {
+    public Question(Integer id) {
         this.id = id;
     }
 
@@ -64,36 +63,28 @@ public class OrderDetail implements Serializable {
         this.id = id;
     }
 
-    public Long getUnitPrice() {
-        return unitPrice;
+    public String getContent() {
+        return content;
     }
 
-    public void setUnitPrice(Long unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Integer getNum() {
-        return num;
+    public Livestream getLivestreamId() {
+        return livestreamId;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setLivestreamId(Livestream livestreamId) {
+        this.livestreamId = livestreamId;
     }
 
-    public Product getProductId() {
-        return productId;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
-    }
-
-    public SaleOrder getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(SaleOrder orderId) {
-        this.orderId = orderId;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -106,10 +97,10 @@ public class OrderDetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderDetail)) {
+        if (!(object instanceof Question)) {
             return false;
         }
-        OrderDetail other = (OrderDetail) object;
+        Question other = (Question) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -118,7 +109,7 @@ public class OrderDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.myproject.pojo.OrderDetail[ id=" + id + " ]";
+        return "com.myproject.pojo.Question[ id=" + id + " ]";
     }
     
 }
