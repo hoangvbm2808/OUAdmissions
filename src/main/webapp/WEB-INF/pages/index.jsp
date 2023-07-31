@@ -153,6 +153,9 @@
             </div>
         </div>
     </div>
+
 </section>
 
-                        <button  id="goToTop" onclick="scrollTop()">Go to Top</button>
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<script src="<c:url value="/js/animation.js"/>"></script>
+
