@@ -5,7 +5,6 @@
 package com.myproject.pojo;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -37,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
-    @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole")})
+    @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
+    @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,10 +71,12 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "user_role")
     private String userRole;
-    @OneToMany(mappedBy = "userId")
-    private Set<Question> questionSet;
-    @OneToMany(mappedBy = "userId")
-    private Set<Comment> commentSet;
+    @Size(max = 200)
+    @Column(name = "avatar")
+    private String avatar;
+    
+    @Transient
+    private MultipartFile file;
 
     public User() {
     }
@@ -155,22 +157,12 @@ public class User implements Serializable {
         this.userRole = userRole;
     }
 
-    @XmlTransient
-    public Set<Question> getQuestionSet() {
-        return questionSet;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setQuestionSet(Set<Question> questionSet) {
-        this.questionSet = questionSet;
-    }
-
-    @XmlTransient
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
-
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override
@@ -196,6 +188,20 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.myproject.pojo.User[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

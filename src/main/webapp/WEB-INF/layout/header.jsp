@@ -25,7 +25,7 @@
             <c:url value="/" var="action" />
             <form class="d-flex" action="${action}">
                 <input class="form-control me-2" type="text" name="kw" placeholder="Nhập từ khóa...">
-                <button class="btn btn-primary" type="submit">Tìm</button>
+                <button class="btn btn-primary ml-2" type="submit">Tìm</button>
             </form>
         </ul>
     </div>
@@ -44,9 +44,6 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Thông tin tuyển sinh</a>
                         <ul class="dropdown-menu">
                             <c:forEach items="${types}" var="t">
-                                <%--<c:url value="/" var="searchUrl">--%>
-                                    <%--<c:param name="typeoftrainningId" value="${t.id}"></c:param> ${searchUrl}--%> 
-                                <%--</c:url>--%>
                                 <li><a class="dropdown-item" style="color: activeborder" href="#${t.id}">${t.name}</a></li>
                            </c:forEach>
                         </ul>
@@ -55,9 +52,9 @@
                         <a class="nav-link" href="<c:url value="/departments"/>">Thông tin khoa-ngành</a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <ul class="nav navbar-nav navbar-right" style="color: #ffffff;">
+                    <li><a href="<c:url value="/user/register" />"><i class="fa-solid fa-user-large"></i> Đăng ký</a></li>
+                    <li><a href="<c:url value="/user/register" />"><i class="fa-solid fa-user-large"></i> Đăng nhập</a></li>
                 </ul>
             </div>
         </div>
