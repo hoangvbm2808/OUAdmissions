@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Thanh
+ * @author vbmho
  */
 @Entity
 @Table(name = "post")
@@ -32,8 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p"),
     @NamedQuery(name = "Post.findById", query = "SELECT p FROM Post p WHERE p.id = :id"),
-    @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title"),
-    @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")})
+    @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +45,8 @@ public class Post implements Serializable {
     @Size(max = 1000)
     @Column(name = "title")
     private String title;
-    @Size(max = 3000)
+    @Lob
+    @Size(max = 2147483647)
     @Column(name = "content")
     private String content;
     @JoinColumn(name = "typeoftrainning_id", referencedColumnName = "id")
