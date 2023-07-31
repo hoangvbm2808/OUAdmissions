@@ -11,7 +11,7 @@
     <h1 class="text-center text-info mt-1">THÔNG TIN KHOA - NGÀNH</h1>
     <div class="w3-row">
         <a href="javascript:void(0)" onclick="openCity(event, 'Daitra');">
-            <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">Các Khoa/ngành đại trà</div>
+            <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-red">Các Khoa/ngành đại trà</div>
         </a>
         <a href="javascript:void(0)" onclick="openCity(event, 'DTDB');">
             <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">Chương trình chất lượng cao</div>
@@ -21,7 +21,7 @@
         </a>
     </div>
     
-    <div id="Daitra" class="w3-container city" style="display:none">
+    <div id="Daitra" class="w3-container city" style="display:block">
         <div>
             <c:forEach items="${departments}" begin="0" end="9" var="d">
                 <c:url value="/department_info" var="departAction">
