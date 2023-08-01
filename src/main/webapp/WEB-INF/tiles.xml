@@ -42,5 +42,11 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content"
                        value="/WEB-INF/pages/post_info.jsp" />
     </definition>
+    <definition name="register" template="/WEB-INF/pages/register.jsp">
+        <put-attribute name="title" value="Cổng thông tin tuyển sinh OU"/>
+    </definition>
+    <definition name="login" template="/WEB-INF/pages/login.jsp">
+<!--        <put-attribute name="title" value="Cổng thông tin tuyển sinh OU"/>-->
+    </definition>
 </tiles-definitions>
 

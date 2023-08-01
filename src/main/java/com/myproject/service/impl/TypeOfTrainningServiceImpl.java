@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author Thanh
  */
 @Service
-public class TypeOfTraininningServiceImpl implements TypeOfTrainningService{
+public class TypeOfTrainningServiceImpl implements TypeOfTrainningService{
     @Autowired
     private TypeOfTrainningRepository typeRepo;
     

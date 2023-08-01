@@ -35,8 +35,8 @@ public class StatsRepositoryImpl implements StatsRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-    @Autowired
-    private SimpleDateFormat f;
+//    @Autowired
+//    private SimpleDateFormat f;
 
     public List<Object[]> statsRevenue(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();

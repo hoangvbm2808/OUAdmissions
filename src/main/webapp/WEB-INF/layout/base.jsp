@@ -25,6 +25,7 @@
         <link href="<c:url value="/css/style.css"/>" rel="stylesheet" />
         <link rel="stylesheet" href="<c:url value="https://www.w3schools.com/w3css/4/w3.css"/>" />
         <link rel="icon" href="<c:url value="https://tuyensinh.ou.edu.vn/theme/ts2020/assets/favicon.ico"/>" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <title>
             <tiles:insertAttribute name="title" />
         </title>
