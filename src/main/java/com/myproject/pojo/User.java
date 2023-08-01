@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,18 +53,18 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "last_name")
     private String lastName;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="{user.email.forMat}")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 45)
     @Column(name = "email")
     private String email;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="{user.phone.forMat}")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Size(max = 45)
     @Column(name = "phone")
     private String phone;
     @Size(max = 45)
     @Column(name = "username")
     private String username;
-    @Size(max = 100)
+    @Size(min = 6, max = 12, message = "{user.password.lenErr}")
     @Column(name = "password")
     private String password;
     @Column(name = "active")
