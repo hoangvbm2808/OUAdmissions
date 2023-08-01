@@ -62,6 +62,8 @@ public class IndexController {
         return "post_index";
     }
    
-    
-    
+    @RequestMapping("/user/register")
+    public String register() {
+        return "register";
+    }
 }
