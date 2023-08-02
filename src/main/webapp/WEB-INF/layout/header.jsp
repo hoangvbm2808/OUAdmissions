@@ -21,7 +21,7 @@
                     TRƯỜNG ĐẠI HỌC MỞ THÀNH PHỐ HỒ CHÍ MINH</span>
             </li>
         </ul>
-                <ul class="nav navbar-nav navbar-right" style="margin-top: 30px; margin-right: 10px">
+        <ul class="nav navbar-nav navbar-right" style="margin-top: 30px; margin-right: 10px">
             <c:url value="/" var="action" />
             <form class="d-flex" action="${action}">
                 <input class="form-control me-2" type="text" name="kw" placeholder="Nhập từ khóa...">
@@ -33,7 +33,7 @@
 
 <nav>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style="border-radius: 0;
-     padding-bottom: 0px; margin-bottom: 0px">
+         padding-bottom: 0px; margin-bottom: 0px">
         <div class="container-fluid">
             <div class="collapse navbar-collapse ml-auto m-mainmenu-nav">
                 <ul class="navbar-nav text-center m-mainmenu">
@@ -45,7 +45,7 @@
                         <ul class="dropdown-menu">
                             <c:forEach items="${types}" var="t">
                                 <li><a class="dropdown-item" style="color: activeborder" href="#${t.id}">${t.name}</a></li>
-                           </c:forEach>
+                                </c:forEach>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -53,14 +53,20 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="color: #ffffff;">
-                    <li><a href="<c:url value="/user/register" />"><i class="fa-solid fa-user-large"></i> Đăng ký</a></li>
-                    <li><a href="<c:url value="/user/login" />"><i class="fa-solid fa-user-large"></i> Đăng nhập</a></li>
+                    <c:if test="${pageContext.request.userPrincipal.name == null}">
+                        <li><a href="<c:url value="/user/register" />"><i class="fa-solid fa-user-large"></i> Đăng ký</a></li>
+                        <li><a href="<c:url value="/user/login" />"><i class="fa-solid fa-user-large"></i> Đăng nhập</a></li>
+                    </c:if>
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <li><a href="<c:url value="/" />"><i class="fa-solid fa-user-large"></i> ${pageContext.request.userPrincipal.name}</a></li>
+                        <li><a href="<c:url value="/logout" />"><i class="fa-solid fa-user-large"></i> Đăng xuất</a></li>
+                    </c:if>
                 </ul>
             </div>
         </div>
     </nav>
 </nav>
-                
+
 
 <!--Slide banner-->
 <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 500px">

@@ -6,6 +6,7 @@ package com.myproject.repository;
 
 import com.myproject.pojo.Post;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,4 +16,7 @@ public interface PostRepository {
     List<Post> getPost();
     List<Object> getPostByType(String typeoftrainningId);
     Object getPostById(int id);
+    List<Post> getPosts(Map<String, String> params);
+    int countPosts();
+//    List<Post> getPostsByPage(Map<String, String> params, int page);
 }

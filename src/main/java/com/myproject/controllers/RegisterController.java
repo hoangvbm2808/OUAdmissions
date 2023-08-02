@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RegisterController {
 
     @Autowired
-    private UserService userService;
+    private UserService userDetailsService;
 
     @Autowired
     private Cloudinary cloudinary;
@@ -42,24 +42,35 @@ public class RegisterController {
     }
 
     @PostMapping("/user/register")
-    public String addUser(@ModelAttribute(value = "user") @Valid User user, BindingResult rs) {
-        if (!rs.hasErrors()) {
-            try {
-                Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
-                        ObjectUtils.asMap("resource_type", "auto"));
-                String avatar = (String) r.get("secure_url");
-                user.setAvatar(avatar);
-                user.setActive(Boolean.TRUE);
-                user.setUserRole("user");
-                if (this.userService.addUser(user)) {
-                    return "redirect:/";
-                } else {
-                    return "register";
+    public String addUser(Model model, @ModelAttribute(value = "user") @Valid User user, BindingResult rs) {
+
+        String errMsg = "";
+
+        if (user.getPassword().equalsIgnoreCase(user.getConfirmPassword())) {
+            if (!rs.hasErrors()) {
+                try {
+                    Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    String avatar = (String) r.get("secure_url");
+                    user.setAvatar(avatar);
+                    if (this.userDetailsService.addUser(user)) {
+                        return "redirect:/user/login";
+                    } else {
+                        errMsg = "Đã có lỗi xảy ra !!!";
+                    }
+                } catch (IOException ex) {
+                    System.err.println(ex.getMessage());
+                    errMsg = "Đã có lỗi xảy ra !!!";
                 }
-            } catch (IOException ex) {
-                System.err.println(ex.getMessage());
+            } else {
+                errMsg = "Đã có lỗi xảy ra !!!";
             }
+
+        } else {
+            errMsg = "Mật khẩu không khớp !!!";
         }
+
+        model.addAttribute("errMsg", errMsg);
         return "register";
     }
 

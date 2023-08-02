@@ -18,6 +18,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,6 +31,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private LocalSessionFactoryBean factory;
+    
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     
     @Autowired
     private UserRepository userRepository;
@@ -45,6 +50,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean addUser(User user) {
+        String pass = user.getPassword();
+        
+        user.setActive(Boolean.TRUE);
+        user.setUserRole(User.USER);
+        user.setPassword(this.passwordEncoder.encode(pass));
+                
         return this.userRepository.addUser(user);
     }
 

@@ -8,6 +8,7 @@ import com.myproject.pojo.Post;
 import com.myproject.repository.PostRepository;
 import com.myproject.service.PostService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,22 @@ public class PostServiceImpl implements PostService{
     public Object getPostById(int id) {
         return this.postRepo.getPostById(id);
     }
+
+    @Override
+    public List<Post> getPosts(Map<String, String> params) {
+        return this.postRepo.getPosts(params);
+    }
+
+    @Override
+    public int countPosts() {
+        return this.postRepo.countPosts();
+    }
+
+//    @Override
+//    public List<Post> getPostsByPage(Map<String, String> params, int page) {
+//        return this.postRepo.getPostsByPage(params, page);
+//    }
+    
+    
     
 }

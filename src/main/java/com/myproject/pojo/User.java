@@ -42,7 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class User implements Serializable {
     
     private static final String ADMIN = "ADMIN";
-    private static final String USER = "USER";
+    public static final String USER = "USER";
     private static final String CONSULTANT = "CONSULTANT";
 
     private static final long serialVersionUID = 1L;
@@ -68,7 +68,7 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "username")
     private String username;
-    @Size(min = 6, max = 12, message = "{user.password.lenErr}")
+    @Size(min = 6, max = 200, message = "{user.password.lenErr}")
     @Column(name = "password")
     private String password;
     @Column(name = "active")
@@ -82,7 +82,10 @@ public class User implements Serializable {
     
     @Transient
     private MultipartFile file;
-
+    
+    @Transient
+    private String confirmPassword;
+    
     public User() {
     }
 
@@ -207,6 +210,20 @@ public class User implements Serializable {
      */
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
     
 }

@@ -6,6 +6,28 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+          crossorigin="anonymous">
+    <link href="https://tuyensinh.ou.edu.vn/core/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<c:url value="https://www.w3schools.com/w3css/4/w3.css"/>" />
+    <link rel="icon" href="<c:url value="https://tuyensinh.ou.edu.vn/theme/ts2020/assets/favicon.ico"/>" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>
+        <tiles:insertAttribute name="title" />
+    </title>
+
+</head>
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
@@ -139,6 +161,7 @@
         }
     }
 </style>
+
 <c:url value="/user/login" var="actionLogin" />
 
 <form class="modal-content animate" action="${actionLogin}" method="post">
@@ -149,22 +172,33 @@
     </div>
 
     <div class="container">
+        <c:if test="${param.error != null}">
+            <div class="alert alert-danger">
+                Đăng nhập thất bại !!!
+            </div>
+        </c:if>
+
+        <c:if test="${param.accessDenied != null}">
+            <div class="alert alert-danger">
+                Không có quyền truy cập !!!
+            </div>
+        </c:if>
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" id="username" name="username" required>
 
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" id="password" name="password" required>
 
-        <button type="submit">Login</button>
+        <button type="submit">Đăng nhập</button>
         <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
+            <input type="checkbox" checked="checked" name="remember"> Nhớ mật khẩu
         </label>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
         <a type="button" href="<c:url value="/" />" style="text-decoration: none;
-           color: white" class="cancelbtn">Cancel</a>
-        <span class="psw">Forgot <a href="#">password?</a></span>
+           color: white" class="cancelbtn">Hủy</a>
+        <span class="psw"><a href="#">Quên mật khẩu?</a></span>
     </div>
 </form>
 
