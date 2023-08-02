@@ -139,7 +139,7 @@
         }
     }
 </style>
-<c:url value="/login" var="actionLogin" />
+<c:url value="/user/login" var="actionLogin" />
 
 <form class="modal-content animate" action="${actionLogin}" method="post">
     <div class="imgcontainer">
@@ -149,11 +149,11 @@
     </div>
 
     <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" id="username" name="username" required>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="password" name="password" required>
 
         <button type="submit">Login</button>
         <label>

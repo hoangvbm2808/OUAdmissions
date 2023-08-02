@@ -35,18 +35,12 @@ public class UserServiceImpl implements UserService{
     
     @Override
     public List<User> getUsers() {
-        Session s = this.factory.getObject().openSession();
-        Query q = s.createQuery("FROM User");
-        
-        return q.getResultList();
+        return this.userRepository.getUsers();
     }
 
     @Override
     public Object getUserById(int id) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Post WHERE id= :i");
-        q.setParameter("i",id);
-        return q.getSingleResult();
+        return this.userRepository.getUserById(id);
     }
 
     @Override

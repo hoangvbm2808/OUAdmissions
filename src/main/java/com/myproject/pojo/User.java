@@ -40,6 +40,10 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
+    
+    private static final String ADMIN = "ADMIN";
+    private static final String USER = "USER";
+    private static final String CONSULTANT = "CONSULTANT";
 
     private static final long serialVersionUID = 1L;
     @Id

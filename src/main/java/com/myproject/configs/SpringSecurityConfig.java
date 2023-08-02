@@ -47,8 +47,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       //  super.configure(http); //To change body of generated methods, choose Tools | Templates.
-      http.formLogin().loginPage("/user/login").usernameParameter("username").
+      http.formLogin().loginPage("/user/login").
+              usernameParameter("username").
               passwordParameter("password");
+      
+      http.formLogin().defaultSuccessUrl("/").failureUrl("/user/login?error");
+      
+      http.csrf().disable();
     }
     
     
