@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <nav class="navbar navbar-expand-sm bg-dark navbar-light fixed-top" style="margin-bottom: 0px; border-radius: 0;
      padding-top: 0px; margin-top: 0px">
     <div class="collapse navbar-collapse ml-auto m-mainmenu-nav" >
@@ -56,11 +56,11 @@
                     <c:if test="${pageContext.request.userPrincipal.name == null}">
                         <li><a href="<c:url value="/user/register" />"><i class="fa-solid fa-user-large"></i> Đăng ký</a></li>
                         <li><a href="<c:url value="/user/login" />"><i class="fa-solid fa-user-large"></i> Đăng nhập</a></li>
-                    </c:if>
-                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        </c:if>
+                        <c:if test="${pageContext.request.userPrincipal.name != null}">
                         <li><a href="<c:url value="/" />"><i class="fa-solid fa-user-large"></i> ${pageContext.request.userPrincipal.name}</a></li>
                         <li><a href="<c:url value="/logout" />"><i class="fa-solid fa-user-large"></i> Đăng xuất</a></li>
-                    </c:if>
+                        </c:if>
                 </ul>
             </div>
         </div>

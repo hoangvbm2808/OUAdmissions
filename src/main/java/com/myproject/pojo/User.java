@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,9 +42,9 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
     
-    private static final String ADMIN = "ADMIN";
+    public static final String ADMIN = "ADMIN";
     public static final String USER = "USER";
-    private static final String CONSULTANT = "CONSULTANT";
+    public static final String CONSULTANT = "CONSULTANT";
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,7 +74,9 @@ public class User implements Serializable {
     private String password;
     @Column(name = "active")
     private Boolean active;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "user_role")
     private String userRole;
     @Size(max = 200)
