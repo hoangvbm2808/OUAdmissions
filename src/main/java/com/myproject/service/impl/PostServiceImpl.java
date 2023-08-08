@@ -46,11 +46,18 @@ public class PostServiceImpl implements PostService{
     public int countPosts() {
         return this.postRepo.countPosts();
     }
+    
+    
 
 //    @Override
 //    public List<Post> getPostsByPage(Map<String, String> params, int page) {
 //        return this.postRepo.getPostsByPage(params, page);
 //    }
+
+    @Override
+    public boolean addOrUpdatePost(Post p) {
+        return this.postRepo.addOrUpdatePost(p);
+    }
     
     
     

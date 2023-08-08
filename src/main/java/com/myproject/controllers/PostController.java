@@ -4,6 +4,7 @@
  */
 package com.myproject.controllers;
 
+import com.myproject.pojo.Post;
 import com.myproject.service.PostService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,7 @@ public class PostController {
         model.addAttribute("post", this.postService.getPostById(id));
         return "post_info";
     }
+    
+    
+    
 }

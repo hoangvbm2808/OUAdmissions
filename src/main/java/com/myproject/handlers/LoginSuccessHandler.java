@@ -32,7 +32,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         
         request.getSession().setAttribute("currentUser", u);
         if (u.getUserRole().equals("ADMIN")) {
-            response.sendRedirect(String.format("%s/admin/index", request.getContextPath()));
+            response.sendRedirect(String.format("%s/admin/post", request.getContextPath()));
         }
         else {
             response.sendRedirect(request.getContextPath());

@@ -19,17 +19,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${action}#">Trang chủ</a>
                 </li>
-                <c:forEach items="${types}" var="t">
+                <c:forEach items="${cates}" var="c">
                     <c:url value="/admin/index" var="searchUrl">
-                        <c:param name="typeoftrainningId" value="${t.id}" /> 
+                        <c:param name="cateId" value="${c.id}" /> 
                     </c:url>
                     <li class="nav-item">
-                        <a class="nav-link" href="${searchUrl}">${t.name}</a>
+                        <a class="nav-link" href="${searchUrl}">${c.name}</a>
                     </li>
                 </c:forEach>
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
-                    <li><a href="#"><i class="fa-solid fa-user-large"></i>${pageContext.request.userPrincipal.name}</a></li>
-                    <li><a href="<c:url value="/logout" />"><i class="fa-solid fa-user-large"></i> Đăng xuất</a></li>
+                    <li><a class="nav-link" href="#">${pageContext.request.userPrincipal.name}</a></li>
+                    <li><a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a></li>
                 </c:if>
             </ul>
             <form class="d-flex" action="${action}">
