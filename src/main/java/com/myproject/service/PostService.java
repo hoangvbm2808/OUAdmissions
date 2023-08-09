@@ -18,5 +18,6 @@ public interface PostService {
     Object getPostById(int id);
     List<Post> getPosts(Map<String, String> params);
     int countPosts();
+    boolean addOrUpdatePost(Post p);
 //    List<Post> getPostsByPage(Map<String, String> params, int page);
 }

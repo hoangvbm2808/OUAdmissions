@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,9 +102,11 @@ public class PostRepositoryImpl implements PostRepository {
             if(page == null) {
                 page = "1";
             }
-            int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-            query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
-            query.setMaxResults(pageSize);
+            if(!page.equals("0")){
+                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+                query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
+                query.setMaxResults(pageSize);
+            }
         }
 
         return query.getResultList();
@@ -115,5 +118,24 @@ public class PostRepositoryImpl implements PostRepository {
         Query q = s.createQuery("SELECT COUNT(*) FROM Post");
 
         return Integer.parseInt(q.getSingleResult().toString());
+    }
+
+    @Override
+    public boolean addOrUpdatePost(Post p) {
+        Session s = this.factory.getObject().getCurrentSession();
+        System.out.println("INFO_Before_try");
+        try {
+            System.out.println("INFO_Before_ADD");
+            if (p.getId() == null){
+                 s.save(p);
+            }
+            else{
+                s.update(p);
+            }
+            return true;
+        } catch (HibernateException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 }

@@ -67,10 +67,15 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     </definition>
     
     
-    <definition name="admin" extends="baseAdmin">
+    <definition name="post" extends="baseAdmin">
         <put-attribute name="title" value="Quản trị OUAdmissions"/>
         <put-attribute name="content"
-                       value="/WEB-INF/pages/admin.jsp" />
+                       value="/WEB-INF/pages/post.jsp" />
+    </definition>
+    <definition name="add_post" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/add_post.jsp" />
     </definition>
     
 </tiles-definitions>

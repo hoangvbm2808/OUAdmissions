@@ -19,4 +19,6 @@ public interface PostRepository {
     List<Post> getPosts(Map<String, String> params);
     int countPosts();
 //    List<Post> getPostsByPage(Map<String, String> params, int page);
+
+    public boolean addOrUpdatePost(Post p);
 }

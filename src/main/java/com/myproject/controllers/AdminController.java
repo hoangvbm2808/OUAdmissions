@@ -5,17 +5,24 @@
 package com.myproject.controllers;
 
 
+import com.myproject.pojo.Post;
+import com.myproject.service.CategoryService;
 import com.myproject.service.PostService;
 import com.myproject.service.TypeOfTrainningService;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,23 +38,54 @@ public class AdminController {
     private PostService postService;
     
     @Autowired
-    private TypeOfTrainningService typeService;
+    private CategoryService cateService;
     
+    @Autowired
+    private TypeOfTrainningService typeService;
     @Autowired
     private Environment env;
     
     @ModelAttribute
     public void commonAttr(Model model) {
+       model.addAttribute("cates", this.cateService.getCates());
        model.addAttribute("types", this.typeService.getTypeOfTrainning());
     }
   
-    @GetMapping("/admin/index")
-    public String index(Model model, @RequestParam Map<String, String> params) {
+    @GetMapping("/admin/post")
+    public String index(Model model, @RequestParam Map<String, String> params) {   
+   
         model.addAttribute("posts", this.postService.getPosts(params));
         int count = this.postService.countPosts();
         int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
         model.addAttribute("pages", Math.ceil(count*1.0/pageSize));
         
-        return "admin";
+        return "post";
     }
+    
+    @GetMapping("/admin/post/add")
+    public String list(Model model) {
+        model.addAttribute("post", new Post());
+        return "add_post";
+    }
+    
+    @PostMapping("/admin/post/add")
+    public String add(Model model ,@ModelAttribute(value = "post") Post p,
+            BindingResult rs) {
+        String errMsg = "";
+        System.out.println(p.getTitle()+ "============" + p.getContent());
+        if (!rs.hasErrors()){
+            if (this.postService.addOrUpdatePost(p) == true)
+                return "redirect:/admin/post";
+            else 
+                errMsg = "Đã có lỗi xảy ra !!!";
+        }
+        else {
+            errMsg = "Đã có lỗi xảy ra !!!";
+        }
+            
+        model.addAttribute("errMsg", errMsg);
+        return "add_post";
+    }
+    
+    
 }

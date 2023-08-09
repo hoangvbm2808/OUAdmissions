@@ -10,6 +10,7 @@
     <class>com.myproject.pojo.Post</class>
     <class>com.myproject.pojo.User</class>
     <class>com.myproject.pojo.Livestream</class>
+    <class>com.myproject.pojo.Category</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ouadmissions?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

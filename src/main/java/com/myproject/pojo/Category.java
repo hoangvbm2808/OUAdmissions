@@ -11,11 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,14 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author vbmho
  */
 @Entity
-@Table(name = "post")
+@Table(name = "category")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p"),
-    @NamedQuery(name = "Post.findById", query = "SELECT p FROM Post p WHERE p.id = :id"),
-    @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title"),
-    @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")})
-public class Post implements Serializable {
+    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
+    @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id"),
+    @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")})
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,19 +37,22 @@ public class Post implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "title")
-    private String title;
-    @Column(name = "content")
-    private String content;
-    @JoinColumn(name = "typeoftrainning_id", referencedColumnName = "id")
-    @ManyToOne
-    private Typeoftrainning typeoftrainningId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "name")
+    private String name;
 
-    public Post() {
+    public Category() {
     }
 
-    public Post(Integer id) {
+    public Category(Integer id) {
         this.id = id;
+    }
+
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -62,28 +63,12 @@ public class Post implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Typeoftrainning getTypeoftrainningId() {
-        return typeoftrainningId;
-    }
-
-    public void setTypeoftrainningId(Typeoftrainning typeoftrainningId) {
-        this.typeoftrainningId = typeoftrainningId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -96,10 +81,10 @@ public class Post implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Post)) {
+        if (!(object instanceof Category)) {
             return false;
         }
-        Post other = (Post) object;
+        Category other = (Category) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -108,7 +93,7 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
-        return "com.myproject.pojo.Post[ id=" + id + " ]";
+        return "com.myproject.pojo.Category[ id=" + id + " ]";
     }
     
 }
