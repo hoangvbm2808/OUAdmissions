@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Object getPostById(int id) {
+    public Post getPostById(int id) {
         return this.postRepo.getPostById(id);
     }
 
@@ -57,6 +57,11 @@ public class PostServiceImpl implements PostService{
     @Override
     public boolean addOrUpdatePost(Post p) {
         return this.postRepo.addOrUpdatePost(p);
+    }
+
+    @Override
+    public boolean deletePost(int id) {
+        return this.postRepo.deletePost(id);
     }
     
     

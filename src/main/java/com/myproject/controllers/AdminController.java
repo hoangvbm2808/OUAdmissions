@@ -22,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +73,6 @@ public class AdminController {
     public String add(Model model ,@ModelAttribute(value = "post") Post p,
             BindingResult rs) {
         String errMsg = "";
-        System.out.println(p.getTitle()+ "============" + p.getContent());
         if (!rs.hasErrors()){
             if (this.postService.addOrUpdatePost(p) == true)
                 return "redirect:/admin/post";
@@ -84,6 +84,12 @@ public class AdminController {
         }
             
         model.addAttribute("errMsg", errMsg);
+        return "add_post";
+    }
+    
+    @GetMapping("/admin/post/add/{id}")
+    public String update(Model model, @PathVariable(value = "id") int id) {
+        model.addAttribute("post", this.postService.getPostById(id));
         return "add_post";
     }
     

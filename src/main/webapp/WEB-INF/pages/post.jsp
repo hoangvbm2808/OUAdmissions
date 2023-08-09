@@ -15,22 +15,31 @@
 
     <c:if test="${pages > 1}">
         <ul class="pagination mt-1">
-            
-            
+
+
             <c:url value="/admin/post" var="pageUrl">
-                    <c:param name="page" value="0" /> 
-                </c:url>
-                <li class="page-item"><a class="page-link" href="${pageUrl}">Tất cả</a></li>
-            
+                <c:param name="page" value="0" /> 
+            </c:url>
+            <li class="page-item"><a class="page-link" href="${pageUrl}">Tất cả</a></li>
+
             <c:forEach begin="1" end="${pages}" var="i">
                 <c:url value="/admin/post" var="pageUrl">
                     <c:param name="page" value="${i}" /> 
                 </c:url>
                 <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
-            </c:forEach>
+                </c:forEach>
         </ul>
 
     </c:if>
+
+    <ul class="pagination mt-1">
+        <c:forEach items="${types}" var="t">
+            <c:url value="/admin/post" var="pageUrl">
+                <c:param name="typeOfTrainningId" value="${t.id}" /> 
+            </c:url>
+            <li class="page-item"><a class="page-link" href="${pageUrl}">${t.name}</a></li>
+            </c:forEach>
+    </ul>
 
     <table class="table table-hover rounded-pill" style="width:100%">
         <thead class="table-dark">
@@ -48,11 +57,13 @@
                     <td class="text-center">${p.id}</td>
                     <td colspan="2">${p.title}</td>
                     <td>${p.typeoftrainningId.name}</td>
+                    <c:url value="/admin/post/add/${p.id}" var="api" />
                     <td class="text-center">
-                        <a href="" class=" btn btn-success">Cập nhật</a>
+                        <a href="${api}" class=" btn btn-success">Cập nhật</a>
                     </td>
                     <td class="text-center">
-                        <button class="btn btn-danger text-center" onclick="">Xóa</button>
+                        <c:url value="/api/admin/post/${p.id}" var="apiDelete" />
+                        <button class="btn btn-danger text-center" onclick="deletePost('${apiDelete}')">Xóa</button>
                     </td>
                 </tr>
             </c:forEach>

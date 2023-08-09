@@ -15,9 +15,9 @@ import java.util.Map;
 public interface PostService {
     List<Post> getPost();
     List<Object> getPostByType(String typeoftrainningId);
-    Object getPostById(int id);
+    Post getPostById(int id);
     List<Post> getPosts(Map<String, String> params);
     int countPosts();
     boolean addOrUpdatePost(Post p);
-//    List<Post> getPostsByPage(Map<String, String> params, int page);
+    boolean deletePost(int id);
 }

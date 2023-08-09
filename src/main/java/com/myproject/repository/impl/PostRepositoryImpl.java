@@ -63,14 +63,6 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Object getPostById(int id) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Post WHERE id= :i");
-        q.setParameter("i", id);
-        return q.getSingleResult();
-    }
-
-    @Override
     public List<Post> getPosts(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
@@ -99,10 +91,10 @@ public class PostRepositoryImpl implements PostRepository {
 
         if (params != null) {
             String page = params.get("page");
-            if(page == null) {
+            if (page == null) {
                 page = "1";
             }
-            if(!page.equals("0")){
+            if (!page.equals("0")) {
                 int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
                 query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
                 query.setMaxResults(pageSize);
@@ -123,18 +115,34 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public boolean addOrUpdatePost(Post p) {
         Session s = this.factory.getObject().getCurrentSession();
-        System.out.println("INFO_Before_try");
         try {
-            System.out.println("INFO_Before_ADD");
-            if (p.getId() == null){
-                 s.save(p);
-            }
-            else{
+            if (p.getId() == null) {
+                s.save(p);
+            } else {
                 s.update(p);
             }
             return true;
         } catch (HibernateException ex) {
             System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public Post getPostById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Post.class, id);
+    }
+    
+    @Override
+    public boolean deletePost(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Post p = this.getPostById(id);
+        try {
+            s.delete(p);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
             return false;
         }
     }

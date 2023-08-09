@@ -15,10 +15,11 @@ import java.util.Map;
 public interface PostRepository {
     List<Post> getPost();
     List<Object> getPostByType(String typeoftrainningId);
-    Object getPostById(int id);
+    Post getPostById(int id);
     List<Post> getPosts(Map<String, String> params);
     int countPosts();
 //    List<Post> getPostsByPage(Map<String, String> params, int page);
 
-    public boolean addOrUpdatePost(Post p);
+    boolean addOrUpdatePost(Post p);
+    boolean deletePost(int id);
 }

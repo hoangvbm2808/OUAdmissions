@@ -20,6 +20,9 @@
         </c:if>
         <hr>
         <form:form action="${action}" method="post" modelAttribute="post">
+            <form:errors path="*" element="div" cssClass="alert alert-danger" />
+            
+            <form:hidden path="id" />
             <div class="mt-3">
                 <label for="title"><b>Tiêu đề</b></label>
                 <div class="form-floating mb-3">
