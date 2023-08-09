@@ -62,7 +62,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public List<User> getUser(String username) {
-        Session s = this.factory.getObject().openSession();
+        Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = s.getCriteriaBuilder();
         CriteriaQuery<User> q = builder.createQuery(User.class);
         Root rUser = q.from(User.class);

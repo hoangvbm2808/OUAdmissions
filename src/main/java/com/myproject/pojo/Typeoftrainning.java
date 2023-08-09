@@ -4,6 +4,7 @@
  */
 package com.myproject.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -43,8 +44,10 @@ public class Typeoftrainning implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "typeoftrainningId")
+    @JsonIgnore
     private Set<Post> postSet;
     @OneToMany(mappedBy = "typeoftrainningId")
+    @JsonIgnore
     private Set<Department> departmentSet;
 
     public Typeoftrainning() {
