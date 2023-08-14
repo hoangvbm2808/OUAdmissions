@@ -4,7 +4,6 @@
  */
 package com.myproject.controllers;
 
-
 import com.myproject.pojo.Post;
 import com.myproject.service.CategoryService;
 import com.myproject.service.PostService;
@@ -35,63 +34,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 @ControllerAdvice
 @PropertySource("classpath:configs.properties")
 public class AdminController {
+
     @Autowired
     private PostService postService;
-    
+
     @Autowired
     private CategoryService cateService;
-    
+
     @Autowired
     private TypeOfTrainningService typeService;
     @Autowired
     private Environment env;
-    
+
     @ModelAttribute
     public void commonAttr(Model model) {
-       model.addAttribute("cates", this.cateService.getCates());
-       model.addAttribute("types", this.typeService.getTypeOfTrainning());
+        model.addAttribute("cates", this.cateService.getCates());
     }
-  
-    @GetMapping("/admin/post")
-    public String index(Model model, @RequestParam Map<String, String> params) {   
-   
-        model.addAttribute("posts", this.postService.getPosts(params));
-        int count = this.postService.countPosts();
-        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-        model.addAttribute("pages", Math.ceil(count*1.0/pageSize));
-        
-        return "post";
-    }
-    
-    @GetMapping("/admin/post/add")
-    public String list(Model model) {
-        model.addAttribute("post", new Post());
-        return "add_post";
-    }
-    
-    @PostMapping("/admin/post/add")
-    public String add(Model model ,@ModelAttribute(value = "post") Post p,
-            BindingResult rs) {
-        String errMsg = "";
-        if (!rs.hasErrors()){
-            if (this.postService.addOrUpdatePost(p) == true)
-                return "redirect:/admin/post";
-            else 
-                errMsg = "Đã có lỗi xảy ra !!!";
+
+    @RequestMapping("/admin/index")
+    public String index(Model model, @RequestParam Map<String, String> params) {
+        if (!params.isEmpty()) {
+            int id = Integer.parseInt(params.get("cateId"));
+            switch (id) {
+                case 0://Index
+                    return "redirect:/admin/index";
+                case 1://Banner
+                    return "redirect:/admin/post";
+                case 2://Department
+                    return "redirect:/admin/departments";
+                case 3://Post
+                    return "redirect:/admin/post";
+                case 4://Livestream
+                    return "redirect:/admin/post";
+                case 5://Ask
+                    return "redirect:/admin/post";
+                case 6://TypeOfTrainning
+                    return "redirect:/admin/post";
+                case 7://User
+                    return "redirect:/admin/post";
+                case 8://Comment
+                    return "redirect:/admin/post";
+            }
         }
-        else {
-            errMsg = "Đã có lỗi xảy ra !!!";
-        }
-            
-        model.addAttribute("errMsg", errMsg);
-        return "add_post";
+        return "index_admin";
     }
-    
-    @GetMapping("/admin/post/add/{id}")
-    public String update(Model model, @PathVariable(value = "id") int id) {
-        model.addAttribute("post", this.postService.getPostById(id));
-        return "add_post";
-    }
-    
-    
 }

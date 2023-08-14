@@ -78,5 +78,23 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/add_post.jsp" />
     </definition>
     
+    <definition name="index_admin" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/index_admin.jsp" />
+    </definition>
+    
+    <definition name="department_admin" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/department_admin.jsp" />
+    </definition>
+    
+    <definition name="add_department" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/add_department.jsp" />
+    </definition>
+    
 </tiles-definitions>
 

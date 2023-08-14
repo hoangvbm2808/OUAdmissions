@@ -17,20 +17,23 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="${action}#">Trang chủ</a>
+                    <c:url value="/admin/index" var="cateId">
+                        <c:param name="cateId" value="0" />
+                    </c:url>
+                    <a class="nav-link" href="${cateId}#">Trang chủ</a>
                 </li>
                 <c:forEach items="${cates}" var="c">
-                    <c:url value="/admin/index" var="searchUrl">
+                    <c:url value="/admin/index" var="cateId">
                         <c:param name="cateId" value="${c.id}" /> 
                     </c:url>
                     <li class="nav-item">
-                        <a class="nav-link" href="${searchUrl}">${c.name}</a>
+                        <a class="nav-link" href="${cateId}">${c.name}</a>
                     </li>
                 </c:forEach>
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                     <li><a class="nav-link" href="#">${pageContext.request.userPrincipal.name}</a></li>
                     <li><a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a></li>
-                </c:if>
+                    </c:if>
             </ul>
             <form class="d-flex" action="${action}">
                 <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa...">

@@ -46,7 +46,7 @@ public class Department implements Serializable {
     @Size(max = 1000)
     @Column(name = "description")
     private String description;
-    @Size(max = 45)
+    @Size(max = 1000)
     @Column(name = "name")
     private String name;
     @Size(max = 1000)
