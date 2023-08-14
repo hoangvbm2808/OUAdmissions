@@ -69,7 +69,7 @@ public class AdminController {
                 case 5://Ask
                     return "redirect:/admin/post";
                 case 6://TypeOfTrainning
-                    return "redirect:/admin/post";
+                    return "redirect:/admin/typeoftrainnings";
                 case 7://User
                     return "redirect:/admin/post";
                 case 8://Comment
