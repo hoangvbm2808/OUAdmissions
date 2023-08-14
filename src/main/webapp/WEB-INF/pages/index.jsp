@@ -14,7 +14,7 @@
 
             <h2 id="1">Hệ chính quy</h2>
             <div>
-                <c:forEach items="${post_1}" var="p" begin="0" end="4">
+                <c:forEach items="${post_1}" var="p">
                     <c:url value="/post_index" var="postIndex" >
                         <c:param name="typeoftrainningId" value="${p.typeoftrainningId.id}" />          
                     </c:url>

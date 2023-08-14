@@ -61,6 +61,24 @@ public class PostRepositoryImpl implements PostRepository {
         Query query = s.createQuery(q);
         return query.getResultList();
     }
+    
+    @Override
+    public List<Object> get5PostByType(String typeoftrainningId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
+        List<Predicate> predicates = new ArrayList<>();
+        Root rPost = q.from(Post.class);
+        q.select(rPost);
+
+        Predicate p = b.equal(rPost.get("typeoftrainningId"), Integer.parseInt(typeoftrainningId));
+        predicates.add(p);
+        q.where(predicates.toArray(Predicate[]::new));
+
+        Query query = s.createQuery(q);
+        return query.setMaxResults(5).getResultList();
+    }
+    
 
     @Override
     public List<Post> getPosts(Map<String, String> params) {
@@ -146,4 +164,6 @@ public class PostRepositoryImpl implements PostRepository {
             return false;
         }
     }
+
+    
 }

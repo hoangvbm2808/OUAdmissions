@@ -47,13 +47,7 @@ public class PostServiceImpl implements PostService{
         return this.postRepo.countPosts();
     }
     
-    
-
-//    @Override
-//    public List<Post> getPostsByPage(Map<String, String> params, int page) {
-//        return this.postRepo.getPostsByPage(params, page);
-//    }
-
+   
     @Override
     public boolean addOrUpdatePost(Post p) {
         return this.postRepo.addOrUpdatePost(p);
@@ -62,6 +56,11 @@ public class PostServiceImpl implements PostService{
     @Override
     public boolean deletePost(int id) {
         return this.postRepo.deletePost(id);
+    }
+
+    @Override
+    public List<Object> get5PostByType(String typeoftrainningId) {
+        return this.postRepo.get5PostByType(typeoftrainningId);
     }
     
     

@@ -15,6 +15,7 @@ import java.util.Map;
 public interface PostRepository {
     List<Post> getPost();
     List<Object> getPostByType(String typeoftrainningId);
+    List<Object> get5PostByType(String typeoftrainningId);
     Post getPostById(int id);
     List<Post> getPosts(Map<String, String> params);
     int countPosts();

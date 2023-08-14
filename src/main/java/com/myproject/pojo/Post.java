@@ -4,6 +4,7 @@
  */
 package com.myproject.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -45,6 +46,7 @@ public class Post implements Serializable {
     private String content;
     @JoinColumn(name = "typeoftrainning_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Typeoftrainning typeoftrainningId;
 
     public Post() {
