@@ -4,7 +4,9 @@
  */
 package com.myproject.repository;
 
+import com.myproject.pojo.Department;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,4 +15,9 @@ import java.util.List;
 public interface DepartmentRepository {
     List<Object> getDepartment();
     Object getDepartmentById(int id);
+    boolean addOrUpdateDepartment(Department d);
+    boolean deleteDepartment(int id);
+    Department getDepartmentById_admin(int id);
+    List<Department> getDepartments(Map<String, String> params);
+    int countDepartments();
 }

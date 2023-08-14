@@ -1,3 +1,4 @@
+
 package com.myproject.controllers;
 
 import com.myproject.service.DepartmentService;
@@ -15,12 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Thanh
  */
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ *
+ * @author vbmho
+ */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
 public class ApiDepartmentController {
     @Autowired
-    private DepartmentService departService;
+    private DepartmentService departmentService;
     
-    
+    @DeleteMapping("/admin/departments/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteDepartment(@PathVariable(value = "id") int id) {
+        this.departmentService.deleteDepartment(id);
+    }
 }
+
