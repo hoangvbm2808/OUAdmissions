@@ -42,7 +42,7 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("types", this.typeService.getTypeOfTrainning());
-        model.addAttribute("post_1", this.postService.getPostByType("1"));
+        model.addAttribute("post_1", this.postService.get5PostByType("1"));
         model.addAttribute("post_2", this.postService.getPostByType("2"));
         model.addAttribute("post_3", this.postService.getPostByType("3"));
         model.addAttribute("post_4", this.postService.getPostByType("4"));
