@@ -13,4 +13,7 @@ import java.util.List;
  */
 public interface TypeOfTrainningRepository {
     List<Typeoftrainning> getTypeOfTrainning();
+    Typeoftrainning getTOTNById(int id);
+    boolean addOrUpdateTOTN(Typeoftrainning t);
+    boolean deleteTOTN(int id);
 }

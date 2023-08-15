@@ -24,5 +24,20 @@ public class TypeOfTrainningServiceImpl implements TypeOfTrainningService{
     public List<Typeoftrainning> getTypeOfTrainning() {
         return this.typeRepo.getTypeOfTrainning();
     }
+
+    @Override
+    public Typeoftrainning getTOTNById(int id) {
+        return this.typeRepo.getTOTNById(id);
+    }
+
+    @Override
+    public boolean addOrUpdateTOTN(Typeoftrainning t) {
+        return this.typeRepo.addOrUpdateTOTN(t);
+    }
+
+    @Override
+    public boolean deleteTOTN(int id) {
+        return this.typeRepo.deleteTOTN(id);
+    }
     
 }
