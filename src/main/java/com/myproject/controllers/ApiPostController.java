@@ -4,19 +4,24 @@
  */
 package com.myproject.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.myproject.pojo.Post;
 import com.myproject.service.PostService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  *
@@ -26,25 +31,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @CrossOrigin
 public class ApiPostController {
+
     @Autowired
     private PostService postService;
-    
+
     @DeleteMapping("/admin/post/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable(value = "id") int id) {
         this.postService.deletePost(id);
     }
-    
+
     @GetMapping("/listPost")
     public ResponseEntity<List<Post>> listPost() {
         List<Post> types = this.postService.getPost();
-        return new ResponseEntity<>(types,HttpStatus.OK);
+        return new ResponseEntity<>(types, HttpStatus.OK);
     }
-    
+
     @GetMapping("/listGet5Post/{id}")
-    public ResponseEntity<List<Object>> get5PostByType(String typeoftrainningId, @PathVariable(value = "id") int id) {
+    public ResponseEntity<List<Object>> get5PostByType(String typeoftrainningId,
+            @PathVariable(value = "id") int id) {
         String i = String.valueOf(id);
         List<Object> types = this.postService.get5PostByType(i);
-        return new ResponseEntity<>(types,HttpStatus.OK);
+        return new ResponseEntity<>(types, HttpStatus.OK);
+    }
+
+    @RequestMapping("/post_info/{id}")
+    public Object postInfo(Model model, @RequestParam Map<String, String> params,
+            @PathVariable(value = "id") int id) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String i = String.valueOf(id);
+        Post p = this.postService.getPostById(id);
+        Object postJson = objectMapper.writeValueAsString(p);
+        return new ResponseEntity<>(postJson, HttpStatus.OK);
     }
 }

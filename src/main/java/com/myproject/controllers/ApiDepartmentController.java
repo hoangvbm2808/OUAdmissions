@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Thanh
  */
+import com.myproject.pojo.Department;
+import java.util.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ApiDepartmentController {
     @Autowired
     private DepartmentService departmentService;
@@ -38,5 +43,12 @@ public class ApiDepartmentController {
     public void deleteDepartment(@PathVariable(value = "id") int id) {
         this.departmentService.deleteDepartment(id);
     }
+    
+    @GetMapping("/listDepartment")
+    public ResponseEntity<List<Object>> listDepart() {
+        List<Object> departs = this.departmentService.getDepartment();
+        return new ResponseEntity<>(departs,HttpStatus.OK);
+    }
+
 }
 

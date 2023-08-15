@@ -4,6 +4,7 @@
  */
 package com.myproject.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -63,6 +64,7 @@ public class Department implements Serializable {
     private Double averageScore;
     @JoinColumn(name = "typeoftrainning_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Typeoftrainning typeoftrainningId;
 
     public Department() {
