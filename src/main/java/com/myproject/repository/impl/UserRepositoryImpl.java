@@ -41,11 +41,9 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public Object getUserById(int id) {
+    public User getUserById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM User WHERE id= :i");
-        q.setParameter("i",id);
-        return q.getSingleResult();
+        return s.get(User.class, id);
     }
 
     @Override
@@ -76,7 +74,40 @@ public class UserRepositoryImpl implements UserRepository{
         Query query = s.createQuery(q);
         return query.getResultList();
     }
+
+    @Override
+    public boolean updateUser(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            s.update(user);
+            return true;
+        } catch (HibernateException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteUser(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        User u = this.getUserById(id);
+        try {
+            s.delete(u);
+            return true;
+        } catch (HibernateException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
     
+    
+    @Override
+    public int countUsers() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("SELECT COUNT(*) FROM User");
+
+        return Integer.parseInt(q.getSingleResult().toString());
+    }
     
     
 }

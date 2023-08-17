@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,8 +53,11 @@ public class PostController {
     
     
     @GetMapping("/admin/post")
-    public String index(Model model, @RequestParam Map<String, String> params) {   
-   
+    public String index(Model model, @RequestParam Map<String, String> params) {
+        String typeOfTrainningId = params.get("typeOfTrainningId");
+        if (typeOfTrainningId != null ) {
+            model.addAttribute("typeOfTrainningId",typeOfTrainningId );
+        }
         model.addAttribute("posts", this.postService.getPosts(params));
         int count = this.postService.countPosts();
         int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));

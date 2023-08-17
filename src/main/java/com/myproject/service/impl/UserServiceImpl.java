@@ -7,6 +7,7 @@ package com.myproject.service.impl;
 import com.myproject.pojo.User;
 import com.myproject.repository.UserRepository;
 import com.myproject.service.UserService;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -77,5 +78,42 @@ public class UserServiceImpl implements UserService{
         return new org.springframework.security.core.userdetails.User(u.getUsername(),
                 u.getPassword(), auth);
     }
+
+    @Override
+    public boolean updateUser(User user) {
+        user.setActive(Boolean.TRUE);
+        return this.userRepository.updateUser(user);
+    }
+
+    @Override
+    public boolean deleteUser(int id) {
+        return this.userRepository.deleteUser(id);
+    }
+
+    @Override
+    public int countUsers() {
+        return this.userRepository.countUsers();
+    }
+
+    @Override
+    public boolean addUserByAdmin(User user) {
+        String pass = user.getPassword();
+        
+        user.setActive(Boolean.TRUE);
+        user.setPassword(this.passwordEncoder.encode(pass));
+                
+        return this.userRepository.addUser(user);
+    }
+
+    @Override
+    public List<String> roles() {
+        List<String> roles = new ArrayList();
+        roles.add("ADMIN");
+        roles.add("USER");
+        roles.add("CONSULTANT");
+        return roles;
+    }
+    
+    
     
 }

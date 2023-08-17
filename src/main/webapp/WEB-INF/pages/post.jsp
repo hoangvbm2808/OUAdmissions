@@ -22,24 +22,47 @@
             </c:url>
             <li class="page-item"><a class="page-link" href="${pageUrl}">Tất cả</a></li>
 
+
             <c:forEach begin="1" end="${pages}" var="i">
-                <c:url value="/admin/post" var="pageUrl">
+                <c:url value="/admin/post" var="pageAction">
                     <c:param name="page" value="${i}" /> 
                 </c:url>
-                <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
+                <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
                 </c:forEach>
         </ul>
 
     </c:if>
 
-    <ul class="pagination mt-1">
+    <div id="buttons" class="mb-3">
+        <c:if test="${typeOfTrainningId == null}">
+            <a class="btn btn-outline-primary button-value active"  href="${action}">Tất cả</a>
+        </c:if>
+        <c:if test="${typeOfTrainningId != null}">
+            <a class="btn btn-outline-primary button-value" href="${action}">Tất cả</a>
+        </c:if>
+
+       
         <c:forEach items="${types}" var="t">
-            <c:url value="/admin/post" var="pageUrl">
+            <c:url value="/admin/post" var="typeAction">
                 <c:param name="typeOfTrainningId" value="${t.id}" /> 
             </c:url>
-            <li class="page-item"><a class="page-link" href="${pageUrl}">${t.name}</a></li>
-            </c:forEach>
-    </ul>
+
+            <c:choose>
+                <c:when test="${typeOfTrainningId == t.id}">
+                    <a class="btn btn-outline-primary button-value active" href="${typeAction}">${t.name}</a>
+                </c:when>
+                <c:otherwise>
+                    <a class="btn btn-outline-primary button-value" href="${typeAction}">${t.name}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </div>
+
+    <form class="d-flex mb-3" action="${action}">
+
+        <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa...">
+        <button class="btn btn-primary" type="submit">Tìm</button>
+    </form>
 
     <table class="table table-hover rounded-pill" style="width:100%">
         <thead class="table-dark">

@@ -12,9 +12,18 @@ import java.util.List;
  * @author vbmho
  */
 public interface UserRepository {
+
     List<User> getUsers();
+
     Object getUserById(int id);
+
     boolean addUser(User user);
-    List<User> getUser(String username);   
+
+    List<User> getUser(String username);
+
+    boolean updateUser(User user);
+
+    boolean deleteUser(int id);
     
+    int countUsers();
 }

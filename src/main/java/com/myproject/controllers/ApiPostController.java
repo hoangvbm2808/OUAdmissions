@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.myproject.configs.EncodingFilter;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 /**
  *
@@ -43,16 +45,16 @@ public class ApiPostController {
 
     @GetMapping("/listPost")
     public ResponseEntity<List<Post>> listPost() {
-        List<Post> types = this.postService.getPost();
-        return new ResponseEntity<>(types, HttpStatus.OK);
+        List<Post> posts = this.postService.getPost();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/listGet5Post/{id}")
     public ResponseEntity<List<Object>> get5PostByType(String typeoftrainningId,
             @PathVariable(value = "id") int id) {
-        String i = String.valueOf(id);
-        List<Object> types = this.postService.get5PostByType(i);
-        return new ResponseEntity<>(types, HttpStatus.OK);
+        List<Object> posts = this.postService.get5PostByType(id);
+        System.out.println(posts.size());
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @RequestMapping("/post_info/{id}")

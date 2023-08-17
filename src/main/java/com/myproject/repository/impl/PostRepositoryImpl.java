@@ -46,7 +46,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Object> getPostByType(String typeoftrainningId) {
+    public List<Object> getPostByType(int typeoftrainningId) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
@@ -54,7 +54,7 @@ public class PostRepositoryImpl implements PostRepository {
         Root rPost = q.from(Post.class);
         q.select(rPost);
 
-        Predicate p = b.equal(rPost.get("typeoftrainningId"), Integer.parseInt(typeoftrainningId));
+        Predicate p = b.equal(rPost.get("typeoftrainningId"), typeoftrainningId);
         predicates.add(p);
         q.where(predicates.toArray(Predicate[]::new));
 
@@ -63,7 +63,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
     
     @Override
-    public List<Object> get5PostByType(String typeoftrainningId) {
+    public List<Object> get5PostByType(int typeoftrainningId) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
@@ -71,7 +71,7 @@ public class PostRepositoryImpl implements PostRepository {
         Root rPost = q.from(Post.class);
         q.select(rPost);
 
-        Predicate p = b.equal(rPost.get("typeoftrainningId"), Integer.parseInt(typeoftrainningId));
+        Predicate p = b.equal(rPost.get("typeoftrainningId"), typeoftrainningId);
         predicates.add(p);
         q.where(predicates.toArray(Predicate[]::new));
 
