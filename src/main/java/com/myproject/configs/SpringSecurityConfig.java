@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 /**
  *
@@ -53,6 +54,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
+    
+    @Bean(name = "mvcHandlerMappingIntrospector")
+    public HandlerMappingIntrospector mvcHandlerMappingIntrospector() {
+        return new HandlerMappingIntrospector();
+    }
 
     //Phan quyen
     @Override
@@ -77,6 +83,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         
 
         http.csrf().disable();
+        http.cors();
     }
 
 }

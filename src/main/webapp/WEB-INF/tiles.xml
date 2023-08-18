@@ -66,6 +66,12 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     <definition name="login" template="/WEB-INF/pages/login.jsp">
     </definition>
     
+     <definition name="register_admin" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/register.jsp" />
+    </definition>
+    
     
     <definition name="post" extends="baseAdmin">
         <put-attribute name="title" value="Quản trị OUAdmissions"/>
@@ -107,6 +113,12 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Quản trị OUAdmissions"/>
         <put-attribute name="content"
                        value="/WEB-INF/pages/add_totn.jsp" />
+    </definition>
+    
+    <definition name="user" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/user.jsp" />
     </definition>
     
 </tiles-definitions>

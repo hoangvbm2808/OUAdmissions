@@ -28,7 +28,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Object> getPostByType(String typeoftrainningId) {
+    public List<Object> getPostByType(int typeoftrainningId) {
         return this.postRepo.getPostByType(typeoftrainningId);
     }
 
@@ -59,7 +59,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Object> get5PostByType(String typeoftrainningId) {
+    public List<Object> get5PostByType(int typeoftrainningId) {
         return this.postRepo.get5PostByType(typeoftrainningId);
     }
     

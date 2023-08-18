@@ -35,10 +35,7 @@
                     <li><a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a></li>
                     </c:if>
             </ul>
-            <form class="d-flex" action="${action}">
-                <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa...">
-                <button class="btn btn-primary" type="submit">Tìm</button>
-            </form>
+            
         </div>
     </div>
 </nav>

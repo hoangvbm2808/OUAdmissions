@@ -55,7 +55,7 @@ public class ApiDepartmentController {
         List<Object> departs = this.departmentService.getDepartment();
         return new ResponseEntity<>(departs,HttpStatus.OK);
     }
-    
+   
     @RequestMapping("/department_info/{id}")
     public Object departInfo(Model model, @RequestParam Map<String, String> params,
             @PathVariable(value = "id") int id) throws JsonProcessingException {
