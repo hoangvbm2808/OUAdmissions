@@ -42,17 +42,18 @@ public class ApiPostController {
     }
 
     @GetMapping("/listPost")
-    public ResponseEntity<List<Post>> listPost() {
-        List<Post> types = this.postService.getPost();
-        return new ResponseEntity<>(types, HttpStatus.OK);
+    @CrossOrigin
+    public ResponseEntity<List<Post>> listPost(@RequestParam Map<String, String> params) {
+        List<Post> listPosts = this.postService.getPosts(params);
+        return new ResponseEntity<>(listPosts, HttpStatus.OK);
     }
 
-    @GetMapping("/listGet5Post/{id}")
+    @GetMapping("/getList5Post/{id}")
     public ResponseEntity<List<Object>> get5PostByType(String typeoftrainningId,
             @PathVariable(value = "id") int id) {
         String i = String.valueOf(id);
-        List<Object> types = this.postService.get5PostByType(i);
-        return new ResponseEntity<>(types, HttpStatus.OK);
+        List<Object> posts = this.postService.get5PostByType(i);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @RequestMapping("/post_info/{id}")
