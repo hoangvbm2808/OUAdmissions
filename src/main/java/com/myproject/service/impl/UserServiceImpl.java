@@ -4,13 +4,19 @@
  */
 package com.myproject.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.myproject.pojo.User;
 import com.myproject.repository.UserRepository;
 import com.myproject.service.UserService;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +28,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -35,6 +42,9 @@ public class UserServiceImpl implements UserService{
     
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private Cloudinary cloudinary;
     
     @Autowired
     private UserRepository userRepository;
@@ -113,7 +123,39 @@ public class UserServiceImpl implements UserService{
         roles.add("CONSULTANT");
         return roles;
     }
-    
-    
+
+    @Override
+    public User getUserByUserName(String username) {
+        return this.userRepository.getUserByUsername(username);
+    }
+
+    @Override
+    public boolean authUser(String username, String password) {
+        return this.userRepository.authUser(username, password);
+    }
+
+    @Override
+    public User addUserAPI(Map<String, String> params, MultipartFile avatar) {
+        User u = new User();
+        u.setFirstName(params.get("firstName"));
+        u.setLastName(params.get("lastName"));
+        u.setPhone(params.get("phone"));
+        u.setEmail(params.get("email"));
+        u.setUsername(params.get("username"));
+        u.setPassword(this.passwordEncoder.encode(params.get("password")));
+        u.setUserRole("ROLE_USER");
+        if (!avatar.isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
+                        ObjectUtils.asMap("resource_type", "auto"));
+                u.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        this.userRepository.addUserAPI(u);
+        return u;
+    }
     
 }

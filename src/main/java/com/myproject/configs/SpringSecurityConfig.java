@@ -4,12 +4,16 @@
  */
 package com.myproject.configs;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.myproject.handlers.LoginSuccessHandler;
 import com.myproject.handlers.MyLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,8 +36,10 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
     "com.myproject.service",
     "com.myproject.handlers"
 })
+@Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    @Autowired
+    private Environment env;
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -55,6 +61,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
     
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", env.getProperty("cloudinary.cloud_name"),
+                        "api_key", env.getProperty("cloudinary.api_id"),
+                        "api_secret", env.getProperty("cloudinary.api_secret"),
+                        "secure", true));
+        return cloudinary;
+    }
+    
     @Bean(name = "mvcHandlerMappingIntrospector")
     public HandlerMappingIntrospector mvcHandlerMappingIntrospector() {
         return new HandlerMappingIntrospector();
@@ -64,7 +81,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //  super.configure(http); //To change body of generated methods, choose Tools | Templates.
-        http.formLogin().loginPage("/user/login").
+        http.formLogin().loginPage("/api/login/").
                 usernameParameter("username").
                 passwordParameter("password");
 

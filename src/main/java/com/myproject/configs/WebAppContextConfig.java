@@ -40,10 +40,6 @@ import org.springframework.web.servlet.view.JstlView;
 })
 public class WebAppContextConfig implements WebMvcConfigurer {
     
-    @Autowired
-    private Environment env;
-    
-
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
@@ -79,24 +75,12 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         resolver.setDefaultEncoding("UTF-8");
         return resolver;
     }
-    
-    @Bean
-    public Cloudinary cloudinary() {
-        Cloudinary cloudinary
-                = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", env.getProperty("cloudinary.cloud_name"),
-                        "api_key", env.getProperty("cloudinary.api_id"),
-                        "api_secret", env.getProperty("cloudinary.api_secret"),
-                        "secure", true));
-        return cloudinary;
-    }
+
     
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource m = new ResourceBundleMessageSource();
-
         m.addBasenames("messages");
-
         return m;
     }
     

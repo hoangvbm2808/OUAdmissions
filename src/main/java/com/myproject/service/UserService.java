@@ -6,7 +6,9 @@ package com.myproject.service;
 
 import com.myproject.pojo.User;
 import java.util.List;
+import java.util.Map;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -31,4 +33,10 @@ public interface UserService extends UserDetailsService {
     boolean addUserByAdmin(User user);
     
     List<String> roles();
+    
+    User getUserByUserName(String username);
+    
+    boolean authUser(String username, String password);
+    
+    User addUserAPI(Map<String, String> params, MultipartFile avatar);
 }
