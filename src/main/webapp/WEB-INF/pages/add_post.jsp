@@ -21,7 +21,7 @@
         <hr>
         <form:form action="${action}" method="post" modelAttribute="post">
             <form:errors path="*" element="div" cssClass="alert alert-danger" />
-            
+
             <form:hidden path="id" />
             <div class="mt-3">
                 <label for="title"><b>Tiêu đề</b></label>
@@ -33,7 +33,7 @@
 
             <div class="mt-3">
                 <label for="typeoftrainningId"><b>Hệ đào tạo</b></label>
-                <div class="form-floating">
+                <div class="form-floating mt-1">
                     <form:select class="form-select" id="type" name="type" path="typeoftrainningId.id">
                         <c:forEach items="${types}" var="t">
                             <c:choose>
@@ -53,8 +53,8 @@
 
             <div class="mt-3">
                 <label for="content"><b>Nội dung bài đăng</b></label>
-                <div class="form-floating mb-3">
-                    <form:textarea rows="5" class="form-control" path="content" id="content"/>
+                <div class="mt-1 mb-3">
+                    <form:textarea rows = "15"  class="form-control" path="content" id="content"/>
                 </div>
             </div>
 
@@ -74,5 +74,12 @@
 
 
         </form:form>
+        <script>
+            ClassicEditor
+                    .create(document.querySelector('#content'))
+                    .catch(error => {
+                        console.error(error);
+                    });
+        </script>
 </section>
-<script src="<c:url value="/js/main.js"/>"></script>
+
