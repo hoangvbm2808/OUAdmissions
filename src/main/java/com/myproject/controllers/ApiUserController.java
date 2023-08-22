@@ -47,19 +47,20 @@ public class ApiUserController {
     }
     
     @GetMapping("/test/")
-    @CrossOrigin(origins = {"127.0.0.1:5500"})
+    @CrossOrigin(origins = {"192.168.56.1:5500"})
     public ResponseEntity<String> test(Principal pricipal) {
         return new ResponseEntity<>("SUCCESSFUL", HttpStatus.OK);
     }
     
-    @PostMapping(path = "/users/", 
+    @PostMapping(path = "/register-user/", 
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<User> addUser(@RequestParam Map<String, String> params, 
-            @RequestPart MultipartFile avatar) {
-        User user = this.userService.addUserAPI(params, avatar);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity<Object> addUser(@RequestParam Map<String, String> params){ 
+//            @RequestPart MultipartFile avatar) { 
+        User user = this.userService.addUserAPI(params);
+//        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
     
     @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)

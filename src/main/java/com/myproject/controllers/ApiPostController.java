@@ -30,7 +30,7 @@ import org.springframework.security.web.access.channel.ChannelProcessingFilter;
  * @author vbmho
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/posts")
 @CrossOrigin
 public class ApiPostController {
 
@@ -54,6 +54,14 @@ public class ApiPostController {
     public ResponseEntity<List<Object>> get5PostByType(String typeoftrainningId,
             @PathVariable(value = "id") int id) {
         List<Object> posts = this.postService.get5PostByType(id);
+        System.out.println(posts.size());
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+    
+    @GetMapping("/getPostByType/{id}")
+    public ResponseEntity<List<Object>> getPostByType(String typeoftrainningId,
+            @PathVariable(value = "id") int id) {
+        List<Object> posts = this.postService.getPostByType(id);
         System.out.println(posts.size());
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }

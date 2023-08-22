@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author vbmho
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/departments")
 @CrossOrigin
 public class ApiDepartmentController {
     @Autowired
