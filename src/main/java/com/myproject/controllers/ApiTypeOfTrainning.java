@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Thanh
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/types")
 @CrossOrigin
 public class ApiTypeOfTrainning {
     @Autowired

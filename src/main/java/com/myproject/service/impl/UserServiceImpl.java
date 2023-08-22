@@ -135,7 +135,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User addUserAPI(Map<String, String> params, MultipartFile avatar) {
+    public User addUserAPI(Map<String, String> params){
+//            MultipartFile avatar) {
         User u = new User();
         u.setFirstName(params.get("firstName"));
         u.setLastName(params.get("lastName"));
@@ -144,15 +145,17 @@ public class UserServiceImpl implements UserService{
         u.setUsername(params.get("username"));
         u.setPassword(this.passwordEncoder.encode(params.get("password")));
         u.setUserRole("USER");
-        if (!avatar.isEmpty()) {
-            try {
-                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
-                        ObjectUtils.asMap("resource_type", "auto"));
-                u.setAvatar(res.get("secure_url").toString());
-            } catch (IOException ex) {
-                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        u.setActive(Boolean.TRUE);
+        u.setAvatar("https://res.cloudinary.com/dohcsyfoi/image/upload/v1692291532/qys1zulsigtbq9mtm3gn.jpg");
+//        if (!avatar.isEmpty()) {
+//            try {
+//                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
+//                        ObjectUtils.asMap("resource_type", "auto"));
+//                u.setAvatar(res.get("secure_url").toString());
+//            } catch (IOException ex) {
+//                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
 
         this.userRepository.addUserAPI(u);
         return u;

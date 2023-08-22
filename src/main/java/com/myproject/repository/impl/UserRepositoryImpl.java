@@ -130,9 +130,14 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public User addUserAPI(User u) {
         Session s = this.factory.getObject().getCurrentSession();
-        s.save(u);
-
-        return u;
+        try {
+            s.save(u);
+            System.out.println("Add success!!");
+            return u;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return u;
+        }
     }
     
 }
