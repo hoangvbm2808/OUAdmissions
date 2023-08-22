@@ -31,7 +31,6 @@ import org.springframework.security.web.access.channel.ChannelProcessingFilter;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
 public class ApiPostController {
 
     @Autowired
@@ -51,14 +50,15 @@ public class ApiPostController {
     }
 
     @GetMapping("/getList5Post/{id}")
-    public ResponseEntity<List<Object>> get5PostByType(String typeoftrainningId,
-            @PathVariable(value = "id") int id) {
+    @CrossOrigin
+    public ResponseEntity<List<Object>> get5PostByType(@PathVariable(value = "id") int id) {
         List<Object> posts = this.postService.get5PostByType(id);
         System.out.println(posts.size());
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @RequestMapping("/post_info/{id}")
+    @CrossOrigin
     public Object postInfo(Model model, @RequestParam Map<String, String> params,
             @PathVariable(value = "id") int id) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

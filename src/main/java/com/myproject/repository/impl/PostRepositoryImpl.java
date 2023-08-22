@@ -75,6 +75,7 @@ public class PostRepositoryImpl implements PostRepository {
         predicates.add(p);
         q.where(predicates.toArray(Predicate[]::new));
 
+        q.orderBy(b.desc(rPost.get("id")));
         Query query = s.createQuery(q);
         return query.setMaxResults(5).getResultList();
     }
