@@ -144,8 +144,6 @@ public class UserServiceImpl implements UserService{
         u.setEmail(params.get("email"));
         u.setUsername(params.get("username"));
         u.setPassword(this.passwordEncoder.encode(params.get("password")));
-        u.setActive(true);
-        u.setAvatar(null);
         u.setUserRole("USER");
 //        if (!avatar.isEmpty()) {
 //            try {
@@ -155,7 +153,8 @@ public class UserServiceImpl implements UserService{
 //            } catch (IOException ex) {
 //                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-//        } 
+//        }
+
         this.userRepository.addUserAPI(u);
         return u;
     }

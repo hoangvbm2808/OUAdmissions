@@ -4,6 +4,7 @@
  */
 package com.myproject.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,10 +85,10 @@ public class User implements Serializable {
     @Size(max = 200)
     @Column(name = "avatar")
     private String avatar;
-    
+    @JsonIgnore
     @Transient
     private MultipartFile file;
-    
+    @JsonIgnore
     @Transient
     private String confirmPassword;
     

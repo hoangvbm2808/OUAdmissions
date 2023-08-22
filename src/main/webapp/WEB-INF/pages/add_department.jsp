@@ -19,7 +19,7 @@
             </div>
         </c:if>
         <hr>
-        <form:form action="${action}" method="post" modelAttribute="department">
+        <form:form action="${action}" method="post" modelAttribute="department" enctype="multipart/form-data">
             <form:errors path="*" element="div" cssClass="alert alert-danger" />
 
             <form:hidden path="id" />
@@ -78,6 +78,9 @@
                     <form:textarea rows="5" class="form-control" path="educationProgram" id="educationProgram"/>
                 </div>
             </div>
+
+            <label for="file">Chọn video giới thiệu:</label>
+            <form:input type="file" id="file" path="file" accept="video/*"/>
 
 
             <div class="form-floating mb-3 mt-3">

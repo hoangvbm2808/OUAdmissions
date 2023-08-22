@@ -96,7 +96,6 @@ public class UserController {
                 }
 
             } catch (IOException ex) {
-                System.err.println(ex.getMessage());
                 errMsg = "Đã có lỗi xảy ra !!!";
             }
         } else {
