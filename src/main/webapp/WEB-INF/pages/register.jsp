@@ -122,9 +122,20 @@
         <label for="username"><b>Tên đăng nhập</b></label>
         <form:input type="text" placeholder="Nhập tên tài khoản" path="username" required="required" autocomplete="off" id="username"/>
 
-        <label for="password"><b>Mật khẩu</b></label>
-        <form:errors path="password" element="div" cssClass="text-danger" />
-        <form:input type="password" placeholder="Nhập mật khẩu" path="password" required="required" autocomplete="off" id="password"/>
+        <c:choose>
+            <c:when test="${user.password == null}">
+                <label for="password"><b>Mật khẩu</b></label>
+                <form:errors path="password" element="div" cssClass="text-danger" />
+                <form:input type="password" placeholder="Nhập mật khẩu" path="password" required="required" autocomplete="off" id="password"/>
+            </c:when>
+            <c:otherwise>
+                <label for="password"><b>Mật khẩu</b></label>
+                <form:errors path="password" element="div" cssClass="text-danger" />
+                <form:input type="password" placeholder="Nhập mật khẩu" path="password" required="required" autocomplete="off" id="password" disabled="true"/>
+            </c:otherwise>
+        </c:choose>
+
+
 
         <c:if test="${user.id == null}">
             <label for="confirm-password"><b>Nhập lại mật khẩu</b></label>

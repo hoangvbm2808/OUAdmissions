@@ -71,31 +71,39 @@ public class UserController {
         String errMsg = "";
         String sucMsg = "";
 
+        rs.getFieldErrors()
+                .forEach(e -> System.out.println(
+                        "field: " + e.getField() + ", rejected value: " + e.getRejectedValue()));
         if (!rs.hasErrors()) {
+            
                 user.setAvatar("https://res.cloudinary.com/dohcsyfoi/image/upload/v1690968439/j993fbu6dekru6b4dqto.jpg");
                 if (user.getId() == null) {
+                    
                     if (this.userService.addUserByAdmin(user)) {
                         sucMsg = "Tạo tài khoản thành công";
                         model.addAttribute("sucMsg", sucMsg);
                         return "register_admin";
                     } else {
+                        
                         errMsg = "Đã có lỗi xảy ra !!!";
                     }
                 } else {
+                    
                     if (this.userService.updateUser(user)) {
                         sucMsg = "Cập nhật tài khoản thành công";
                         model.addAttribute("sucMsg", sucMsg);
                         return "register_admin";
                     } else {
+                       
                         errMsg = "Đã có lỗi xảy ra !!!";
                     }
                 }
         } else {
+            
             errMsg = "Đã có lỗi xảy ra !!!";
         }
 
-        model.addAttribute(
-                "errMsg", errMsg);
+        model.addAttribute("errMsg", errMsg);
 
         return "register_admin";
     }
