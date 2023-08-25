@@ -4,7 +4,7 @@
  */
 package com.myproject.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,15 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
 @Table(name = "user")
@@ -48,64 +52,94 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "active")
-    private boolean active;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Set<Comment> commentSet;
-    
     public static final String ADMIN = "ADMIN";
     public static final String USER = "USER";
     public static final String CONSULTANT = "CONSULTANT";
 
+    
+//    @Transient
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    private MultipartFile file;
+    @JsonIgnore
+    @Transient
+    private String confirmPassword;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "first_name")
     private String firstName;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "last_name")
     private String lastName;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="{user.email.forMat}")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 45)
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
-    @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="{user.phone.forMat}")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Size(max = 45)
+    @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "phone")
     private String phone;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 6, max = 200, message = "{user.password.lenErr}")
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Column(name = "active")
+    private boolean active;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "user_role")
     private String userRole;
-    @Size(max = 200)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "avatar")
     private String avatar;
+    @OneToMany(mappedBy = "userId")
     @JsonIgnore
-    @Transient
-    private MultipartFile file;
+    private Set<Question> questionSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     @JsonIgnore
-    @Transient
-    private String confirmPassword;
-    
+    private Set<Comment> commentSet;
+
     public User() {
     }
 
     public User(Integer id) {
         this.id = id;
+    }
+
+    public User(Integer id, String firstName, String lastName, String email, String phone, String username, String password, boolean active, String userRole, String avatar) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.userRole = userRole;
+        this.avatar = avatar;
     }
 
     public Integer getId() {
@@ -164,6 +198,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 
     public String getUserRole() {
         return userRole;
@@ -179,6 +221,26 @@ public class User implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Set<Question> getQuestionSet() {
+        return questionSet;
+    }
+
+    public void setQuestionSet(Set<Question> questionSet) {
+        this.questionSet = questionSet;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
     }
 
     @Override
@@ -206,19 +268,19 @@ public class User implements Serializable {
         return "com.myproject.pojo.User[ id=" + id + " ]";
     }
 
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
+//    /**
+//     * @return the file
+//     */
+//    public MultipartFile getFile() {
+//        return file;
+//    }
+////
+////    /**
+////     * @param file the file to set
+////     */
+//    public void setFile(MultipartFile file) {
+//        this.file = file;
+//    }
 
     /**
      * @return the confirmPassword
@@ -234,21 +296,9 @@ public class User implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
-    public boolean getActive() {
-        return active;
-    }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    
 
-    @XmlTransient
-    @org.codehaus.jackson.annotate.JsonIgnore
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
+    
 
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
 }

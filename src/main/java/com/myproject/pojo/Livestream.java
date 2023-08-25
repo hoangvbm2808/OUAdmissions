@@ -19,10 +19,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
 @Table(name = "livestream")
@@ -80,14 +81,15 @@ public class Livestream implements Serializable {
         this.content = content;
     }
 
-    @XmlTransient
-    public Set<Question> getQuestionSet() {
-        return questionSet;
-    }
-
-    public void setQuestionSet(Set<Question> questionSet) {
-        this.questionSet = questionSet;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public Set<Question> getQuestionSet() {
+//        return questionSet;
+//    }
+//
+//    public void setQuestionSet(Set<Question> questionSet) {
+//        this.questionSet = questionSet;
+//    }
 
     @Override
     public int hashCode() {

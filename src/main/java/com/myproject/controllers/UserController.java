@@ -72,11 +72,7 @@ public class UserController {
         String sucMsg = "";
 
         if (!rs.hasErrors()) {
-            try {
-                Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
-                        ObjectUtils.asMap("resource_type", "auto"));
-                String avatar = (String) r.get("secure_url");
-                user.setAvatar(avatar);
+                user.setAvatar("https://res.cloudinary.com/dohcsyfoi/image/upload/v1690968439/j993fbu6dekru6b4dqto.jpg");
                 if (user.getId() == null) {
                     if (this.userService.addUserByAdmin(user)) {
                         sucMsg = "Tạo tài khoản thành công";
@@ -94,10 +90,6 @@ public class UserController {
                         errMsg = "Đã có lỗi xảy ra !!!";
                     }
                 }
-
-            } catch (IOException ex) {
-                errMsg = "Đã có lỗi xảy ra !!!";
-            }
         } else {
             errMsg = "Đã có lỗi xảy ra !!!";
         }

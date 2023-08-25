@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
 @Table(name = "banner")

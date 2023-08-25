@@ -4,7 +4,6 @@
  */
 package com.myproject.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -20,10 +19,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
 @Table(name = "typeoftrainning")
@@ -43,11 +43,11 @@ public class Typeoftrainning implements Serializable {
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "typeoftrainningId")
     @JsonIgnore
+    @OneToMany(mappedBy = "typeoftrainningId")
     private Set<Post> postSet;
-    @OneToMany(mappedBy = "typeoftrainningId")
     @JsonIgnore
+    @OneToMany(mappedBy = "typeoftrainningId")
     private Set<Department> departmentSet;
 
     public Typeoftrainning() {
@@ -73,23 +73,16 @@ public class Typeoftrainning implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public Set<Post> getPostSet() {
-        return postSet;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public Set<Post> getPostSet() {
+//        return postSet;
+//    }
+//
+//    public void setPostSet(Set<Post> postSet) {
+//        this.postSet = postSet;
+//    }
 
-    public void setPostSet(Set<Post> postSet) {
-        this.postSet = postSet;
-    }
-
-    @XmlTransient
-    public Set<Department> getDepartmentSet() {
-        return departmentSet;
-    }
-
-    public void setDepartmentSet(Set<Department> departmentSet) {
-        this.departmentSet = departmentSet;
-    }
 
     @Override
     public int hashCode() {

@@ -4,7 +4,7 @@
  */
 package com.myproject.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,10 +24,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
 @Table(name = "post")
@@ -34,27 +37,28 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p"),
     @NamedQuery(name = "Post.findById", query = "SELECT p FROM Post p WHERE p.id = :id"),
-    @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title"),
-    @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")})
+    @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")})
 public class Post implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
-    private Set<Comment> commentSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 1000)
     @Column(name = "title")
     private String title;
+    @Lob
+    @Size(max = 2147483647)
     @Column(name = "content")
     private String content;
     @JoinColumn(name = "typeoftrainning_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
     private Typeoftrainning typeoftrainningId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
+    @JsonIgnore
+    private Set<Comment> commentSet;
 
     public Post() {
     }
@@ -94,6 +98,16 @@ public class Post implements Serializable {
     public void setTypeoftrainningId(Typeoftrainning typeoftrainningId) {
         this.typeoftrainningId = typeoftrainningId;
     }
+
+//    @XmlTransient
+//    @JsonIgnore
+//    public Set<Comment> getCommentSet() {
+//        return commentSet;
+//    }
+//
+//    public void setCommentSet(Set<Comment> commentSet) {
+//        this.commentSet = commentSet;
+//    }
 
     @Override
     public int hashCode() {

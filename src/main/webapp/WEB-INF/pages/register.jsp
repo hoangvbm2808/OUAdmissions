@@ -102,7 +102,7 @@
         </div>
     </c:if>
     <hr>
-    <form:form action="${register}" method="post" modelAttribute="user" enctype="multipart/form-data">
+    <form:form action="${register}" method="post" modelAttribute="user">
         <form:hidden path="id" />
 
         <label for="first_name"><b>Tên</b></label>
@@ -150,11 +150,6 @@
             </form:select>
         </sec:authorize>
 
-
-
-        <label for="file">Chọn ảnh đại diện:</label>
-        <form:input type="file" id="file" path="file" accept="image/png, image/jpeg" required="required"/>
-        <hr>
 
         <p>Thông tin & chính sách sử dụng <a href="#">OUAdmissions</a>.</p>
         <c:choose>
