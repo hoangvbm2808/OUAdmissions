@@ -55,8 +55,7 @@ public class ApiPostController {
     }
     
     @GetMapping("/getPostByType/{id}")
-    public ResponseEntity<List<Object>> getPostByType(String typeoftrainningId,
-            @PathVariable(value = "id") int id) {
+    public ResponseEntity<List<Object>> getPostByType(@PathVariable(value = "id") int id) {
         List<Object> posts = this.postService.getPostByType(id);
         System.out.println(posts.size());
         return new ResponseEntity<>(posts, HttpStatus.OK);

@@ -43,6 +43,7 @@ public class AdminController {
 
     @Autowired
     private TypeOfTrainningService typeService;
+    
     @Autowired
     private Environment env;
 

@@ -6,6 +6,8 @@ package com.myproject.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.myproject.formatter.PostFormatter;
+import com.myproject.formatter.UserFormatter;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -107,5 +110,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         return validator();
     }
     
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new PostFormatter());
+        registry.addFormatter(new UserFormatter());
+    }
     
 }

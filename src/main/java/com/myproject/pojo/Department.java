@@ -4,7 +4,6 @@
  */
 package com.myproject.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,11 +19,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author vbmho
+ * @author Thanh
  */
 @Entity
 @Table(name = "department")
@@ -46,7 +46,7 @@ public class Department implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 1000)
+    @Size(max = 1500)
     @Column(name = "description")
     private String description;
     @Size(max = 1000)
