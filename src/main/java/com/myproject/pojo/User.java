@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +18,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -44,6 +48,13 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "active")
+    private boolean active;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Comment> commentSet;
     
     public static final String ADMIN = "ADMIN";
     public static final String USER = "USER";
@@ -75,8 +86,6 @@ public class User implements Serializable {
     @Size(min = 6, max = 200, message = "{user.password.lenErr}")
     @Column(name = "password")
     private String password;
-    @Column(name = "active")
-    private Boolean active;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -155,13 +164,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
 
     public String getUserRole() {
         return userRole;
@@ -230,5 +232,23 @@ public class User implements Serializable {
      */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    @XmlTransient
+    @org.codehaus.jackson.annotate.JsonIgnore
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
     }
 }

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
     @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id"),
-    @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content")})
+    @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content"),
+    @NamedQuery(name = "Comment.findByReply", query = "SELECT c FROM Comment c WHERE c.reply = :reply")})
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,14 +40,18 @@ public class Comment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 1000)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1000)
     @Column(name = "content")
     private String content;
+    @Column(name = "reply")
+    private Integer reply;
     @JoinColumn(name = "post_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Post postId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User userId;
 
     public Comment() {
@@ -53,6 +59,11 @@ public class Comment implements Serializable {
 
     public Comment(Integer id) {
         this.id = id;
+    }
+
+    public Comment(Integer id, String content) {
+        this.id = id;
+        this.content = content;
     }
 
     public Integer getId() {
@@ -69,6 +80,14 @@ public class Comment implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getReply() {
+        return reply;
+    }
+
+    public void setReply(Integer reply) {
+        this.reply = reply;
     }
 
     public Post getPostId() {

@@ -6,7 +6,9 @@ package com.myproject.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +18,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title"),
     @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")})
 public class Post implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
+    private Set<Comment> commentSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -111,6 +118,16 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         return "com.myproject.pojo.Post[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    @org.codehaus.jackson.annotate.JsonIgnore
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
     }
     
 }
