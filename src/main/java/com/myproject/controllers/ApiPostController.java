@@ -28,6 +28,7 @@ import org.springframework.security.web.access.channel.ChannelProcessingFilter;
  */
 @RestController
 @RequestMapping("/api")
+
 public class ApiPostController {
 
     @Autowired
@@ -50,7 +51,6 @@ public class ApiPostController {
     @CrossOrigin
     public ResponseEntity<List<Object>> get5PostByType(@PathVariable(value = "id") int id) {
         List<Object> posts = this.postService.get5PostByType(id);
-        System.out.println(posts.size());
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
     

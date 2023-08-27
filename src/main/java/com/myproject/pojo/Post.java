@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -134,14 +135,13 @@ public class Post implements Serializable {
         return "com.myproject.pojo.Post[ id=" + id + " ]";
     }
 
-    @XmlTransient
-    @org.codehaus.jackson.annotate.JsonIgnore
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
-
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
+    
+//    public Set<Comment> getCommentSet() {
+//        return commentSet;
+//    }
+//
+//    public void setCommentSet(Set<Comment> commentSet) {
+//        this.commentSet = commentSet;
+//    }
     
 }

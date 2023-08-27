@@ -222,25 +222,25 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public Set<Question> getQuestionSet() {
-        return questionSet;
-    }
-
-    public void setQuestionSet(Set<Question> questionSet) {
-        this.questionSet = questionSet;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
-
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
+//    @XmlTransient
+//    @JsonIgnore
+//    public Set<Question> getQuestionSet() {
+//        return questionSet;
+//    }
+//
+//    public void setQuestionSet(Set<Question> questionSet) {
+//        this.questionSet = questionSet;
+//    }
+//
+//    @XmlTransient
+//    @JsonIgnore
+//    public Set<Comment> getCommentSet() {
+//        return commentSet;
+//    }
+//
+//    public void setCommentSet(Set<Comment> commentSet) {
+//        this.commentSet = commentSet;
+//    }
 
     @Override
     public int hashCode() {
