@@ -56,15 +56,47 @@ public class CommentRepositoryImpl implements CommentRepository{
     }
 
     @Override
-    public Comment addComment(Comment comment) {
+    public Comment addOrUpdateComment(Comment comment) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
-            s.save(comment);
-            System.out.println("Add success!!");
+            if (comment.getId() == null) {
+                s.save(comment);
+                System.out.println("Add success!!");
+            } else {
+                s.update(comment);
+                System.out.println("Update success!!");
+            }
             return comment;
         } catch (HibernateException ex) {
             System.out.println(ex.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public List<Object> getCommentByReply(int reply) {
+        Session s = this.factory.getObject().openSession();
+        Query q = s.createQuery("FROM Comment where reply = :reply");
+        q.setParameter("reply", reply);
+        return q.getResultList();
+    }
+    
+    @Override
+    public Comment getCommentById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Comment.class, id);
+    }
+
+    @Override
+    public boolean deleteComment(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Comment c = this.getCommentById(id);
+        try {
+            s.delete(c);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
         }
     }
     

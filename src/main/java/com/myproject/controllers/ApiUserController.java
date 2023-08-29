@@ -53,14 +53,13 @@ public class ApiUserController {
     }
     
    
-    @PostMapping("/register-user/")
+    @PostMapping(path = "/register-user/", 
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<Object> addUser(@RequestBody User user){ 
-//            @RequestPart MultipartFile avatar) {
-        System.out.println("===================="+user.getUsername());
-        
-//        User user = this.userService.addUserAPI(params);
-//        return user;
+    public ResponseEntity<Object> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+//        System.out.println("===================="+user.getUsername());
+        User user = this.userService.addUserAPI(params, avatar);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     

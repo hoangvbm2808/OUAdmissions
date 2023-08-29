@@ -26,7 +26,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,6 +59,7 @@ public class User implements Serializable {
     
 //    @Transient
 //    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    @JsonIgnore
 //    private MultipartFile file;
     @JsonIgnore
     @Transient

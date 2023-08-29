@@ -14,5 +14,9 @@ import java.util.List;
 public interface CommentService {
     List<Object> getComments();
     List<Object> getCommentByPost(int postId);
-    Comment addComment(Comment comment);
+    Comment addOrUpdateComment(Comment comment);
+    List<Object> getCommentByReply(int reply);
+    boolean deleteComment(int id);
+    Comment getCommentById(int cmtId);
+    
 }

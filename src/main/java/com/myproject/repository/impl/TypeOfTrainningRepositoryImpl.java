@@ -33,7 +33,6 @@ public class TypeOfTrainningRepositoryImpl implements TypeOfTrainningRepository 
     public List<Typeoftrainning> getTypeOfTrainning() {
         Session s = this.factory.getObject().openSession();
         Query q = s.createQuery("FROM Typeoftrainning");
-
         return q.getResultList();
     }
 

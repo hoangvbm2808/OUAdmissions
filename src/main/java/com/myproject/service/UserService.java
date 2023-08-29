@@ -38,6 +38,5 @@ public interface UserService extends UserDetailsService {
     
     boolean authUser(String username, String password);
     
-    User addUserAPI(Map<String, String> params);
-//            , MultipartFile avatar);
+    User addUserAPI(Map<String, String> params, MultipartFile avatar);
 }

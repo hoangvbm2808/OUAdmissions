@@ -33,8 +33,23 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment addComment(Comment comment) {
-        return this.commentRepo.addComment(comment);
+    public Comment addOrUpdateComment(Comment comment) {
+        return this.commentRepo.addOrUpdateComment(comment);
+    }
+
+    @Override
+    public List<Object> getCommentByReply(int reply) {
+        return this.commentRepo.getCommentByReply(reply);
+    }
+
+    @Override
+    public boolean deleteComment(int id) {
+        return this.commentRepo.deleteComment(id);
+    }
+
+    @Override
+    public Comment getCommentById(int cmtId) {
+        return this.commentRepo.getCommentById(cmtId);
     }
     
 }
