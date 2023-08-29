@@ -67,6 +67,7 @@ public class ApiUserController {
     @CrossOrigin
     public ResponseEntity<User> details(Principal user) {
         User u = this.userService.getUserByUserName(user.getName());
+        
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
     
