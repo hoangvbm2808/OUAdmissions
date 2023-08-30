@@ -45,13 +45,13 @@ public class ApiCommentController {
         return new ResponseEntity<>(this.commentService.addOrUpdateComment(comment), HttpStatus.CREATED);
     }
     
-    @PutMapping("/updateComment/{id}")
+    @PostMapping("/updateComment/{id}")
     public ResponseEntity<Object> update(@PathVariable(value = "id") int id, @RequestBody Comment comment) {
         Comment c = this.commentService.getCommentById(id);
         c.setContent(comment.getContent());
-        c.setPostId(comment.getPostId());
-        c.setUserId(comment.getUserId());
-        c.setReply(comment.getReply());
+//        c.setPostId(comment.getPostId());
+//        c.setUserId(comment.getUserId());
+//        c.setReply(comment.getReply());
         return new ResponseEntity<>(this.commentService.addOrUpdateComment(c),HttpStatus.OK);
     }
     
