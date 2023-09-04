@@ -15,8 +15,6 @@
 
     <c:if test="${pages > 1}">
         <ul class="pagination mt-1">
-
-
             <c:url value="/admin/post" var="pageUrl">
                 <c:param name="page" value="0" /> 
             </c:url>

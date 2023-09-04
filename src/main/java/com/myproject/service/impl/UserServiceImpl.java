@@ -94,6 +94,8 @@ public class UserServiceImpl implements UserService{
         user.setActive(Boolean.TRUE);
         return this.userRepository.updateUser(user);
     }
+    
+    
 
     @Override
     public boolean deleteUser(int id) {
@@ -158,6 +160,17 @@ public class UserServiceImpl implements UserService{
 
         this.userRepository.addUserAPI(u);
         return u;
+    }
+
+    @Override
+    public User changePassword(Map<String, String> params) {
+//        User u = this.userRepository.getUserByUserName(params.get("username").toString());
+        User u = this.userRepository.getUserByUsername(params.get("username").toString());
+        String pass = params.get("newPassword").toString();
+        u.setPassword(this.passwordEncoder.encode(pass));
+        if (this.updateUser(u) == true)
+            return u;
+        return null;
     }
     
 }

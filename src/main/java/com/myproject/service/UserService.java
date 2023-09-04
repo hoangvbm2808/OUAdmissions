@@ -25,6 +25,8 @@ public interface UserService extends UserDetailsService {
     Object getUserById(int id);
 
     boolean updateUser(User user);
+    
+    User changePassword(Map<String, String> params);
 
     boolean deleteUser(int id);
     

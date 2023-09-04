@@ -9,6 +9,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.myproject.formatter.PostFormatter;
 import com.myproject.formatter.UserFormatter;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -87,6 +90,22 @@ public class WebAppContextConfig implements WebMvcConfigurer {
                 = new CommonsMultipartResolver();
         resolver.setDefaultEncoding("UTF-8");
         return resolver;
+    }
+    
+    @Bean 
+    public JavaMailSender javaMailSender(){
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        mailSender.setUsername("2051052120thanh@ou.edu.vn");
+        mailSender.setPassword("peppabigiumaOhong@6");
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        mailSender.setJavaMailProperties(properties);
+
+        return mailSender;
+    
     }
 
     

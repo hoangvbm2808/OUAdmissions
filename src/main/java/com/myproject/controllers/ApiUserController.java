@@ -5,6 +5,7 @@
 package com.myproject.controllers;
 
 import com.myproject.components.JwtService;
+import com.myproject.pojo.Comment;
 import com.myproject.pojo.User;
 import com.myproject.service.UserService;
 import java.security.Principal;
@@ -15,7 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,5 +73,27 @@ public class ApiUserController {
         
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
+    
+    @PostMapping("/change-password/")
+    @CrossOrigin
+    public ResponseEntity<Object> changePass(@RequestParam Map<String, String> params) {
+        if (this.userService.authUser(params.get("username").toString(), 
+                params.get("password").toString())) {
+            User u1 = this.userService.changePassword(params);
+            return new ResponseEntity<>(u1, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null,HttpStatus.CREATED);
+    }
+    
+//    @PostMapping("/change-password/")
+//    @CrossOrigin
+//    public ResponseEntity<Taikhoan> changePassword(@RequestParam Map<String, String> params) {
+//        if (this.tkService.authUser(params.get("tenTaiKhoan").toString(), params.get("matKhau").toString()) == true) {
+//            Taikhoan a = tkService.thayDoiMatKhau(params);
+//
+//            return new ResponseEntity<>(a, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(null, HttpStatus.CREATED);
+//    }
     
 }

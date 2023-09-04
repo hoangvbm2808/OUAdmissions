@@ -62,9 +62,11 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/api/**");
+        http.authorizeRequests().antMatchers("/api/change-password/").permitAll();
         http.authorizeRequests().antMatchers("/api/**").permitAll();
         http.authorizeRequests().antMatchers("/api/login/").permitAll();
         http.authorizeRequests().antMatchers("/api/getList5Post/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/livestreams/**").permitAll();
         http.authorizeRequests().antMatchers("/api/users/").permitAll();
         http.authorizeRequests().antMatchers("/api/types/**").permitAll();
         http.authorizeRequests().antMatchers("/api/posts/**").permitAll();

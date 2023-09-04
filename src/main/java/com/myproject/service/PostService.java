@@ -15,6 +15,7 @@ import java.util.Map;
 public interface PostService {
     List<Post> getPost();
     List<Object> getPostByType(int typeoftrainningId);
+//            , Map<String, String> params);
     List<Object> get5PostByType(int typeoftrainningId);
     Post getPostById(int id);
     List<Post> getPosts(Map<String, String> params);

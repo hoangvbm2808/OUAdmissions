@@ -46,7 +46,9 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Object> getPostByType(int typeoftrainningId) {
+    public List<Object> getPostByType(int typeoftrainningId
+//            , Map<String, String> params
+    ) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
@@ -59,6 +61,19 @@ public class PostRepositoryImpl implements PostRepository {
         q.where(predicates.toArray(Predicate[]::new));
 
         Query query = s.createQuery(q);
+        
+//        if (params != null) {
+//            String page = params.get("page");
+//            if (page == null) {
+//                page = "1";
+//            }
+//            if (!page.equals("0")) {
+//                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+//                query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
+//                query.setMaxResults(pageSize);
+//            }
+//        }
+        
         return query.getResultList();
     }
     
@@ -77,6 +92,7 @@ public class PostRepositoryImpl implements PostRepository {
 
         q.orderBy(b.desc(rPost.get("id")));
         Query query = s.createQuery(q);
+        
         return query.setMaxResults(5).getResultList();
     }
     
@@ -127,7 +143,6 @@ public class PostRepositoryImpl implements PostRepository {
     public int countPosts() {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("SELECT COUNT(*) FROM Post");
-
         return Integer.parseInt(q.getSingleResult().toString());
     }
 

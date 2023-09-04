@@ -32,6 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Question.findByContent", query = "SELECT q FROM Question q WHERE q.content = :content")})
 public class Question implements Serializable {
 
+    @Column(name = "answer")
+    private Integer answer;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +50,7 @@ public class Question implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
+    
 
     public Question() {
     }
@@ -110,6 +114,14 @@ public class Question implements Serializable {
     @Override
     public String toString() {
         return "com.myproject.pojo.Question[ id=" + id + " ]";
+    }
+
+    public Integer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Integer answer) {
+        this.answer = answer;
     }
     
 }

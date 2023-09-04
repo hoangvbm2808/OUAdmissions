@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myproject.configs.EncodingFilter;
+import java.util.HashMap;
+import org.springframework.core.env.Environment;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
 /**
@@ -28,8 +30,10 @@ import org.springframework.security.web.access.channel.ChannelProcessingFilter;
  */
 @RestController
 @RequestMapping("/api")
-
 public class ApiPostController {
+    
+    @Autowired
+    private Environment env;
 
     @Autowired
     private PostService postService;
@@ -55,9 +59,18 @@ public class ApiPostController {
     }
     
     @GetMapping("/getPostByType/{id}")
-    public ResponseEntity<List<Object>> getPostByType(@PathVariable(value = "id") int id) {
+    public ResponseEntity<List<Object>> getPostByType(@PathVariable(value = "id") int id
+//            @RequestParam Map<String, String> params
+    ) {
         List<Object> posts = this.postService.getPostByType(id);
-        System.out.println(posts.size());
+//        int count = this.postService.getPostByType(id, null).size();
+//        System.out.println(count);
+//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+//        double totalPages = Math.ceil(count*1.0/pageSize);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("posts", posts);
+//        response.put("pages", totalPages);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 

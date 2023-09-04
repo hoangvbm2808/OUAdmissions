@@ -40,22 +40,19 @@ public class ApiCommentController {
         return new ResponseEntity<>(comments,HttpStatus.OK);
     }
     
-    @PostMapping("/addComment")
+    @PostMapping("/comments/")
     public ResponseEntity<Object> addComment(@RequestBody Comment comment){ 
         return new ResponseEntity<>(this.commentService.addOrUpdateComment(comment), HttpStatus.CREATED);
     }
     
-    @PostMapping("/updateComment/{id}")
+    @PostMapping("/comments/{id}")
     public ResponseEntity<Object> update(@PathVariable(value = "id") int id, @RequestBody Comment comment) {
         Comment c = this.commentService.getCommentById(id);
         c.setContent(comment.getContent());
-//        c.setPostId(comment.getPostId());
-//        c.setUserId(comment.getUserId());
-//        c.setReply(comment.getReply());
         return new ResponseEntity<>(this.commentService.addOrUpdateComment(c),HttpStatus.OK);
     }
     
-    @DeleteMapping("/deleteComment/{id}")
+    @DeleteMapping("/comments/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable(value = "id") int id) {
         this.commentService.deleteComment(id);
