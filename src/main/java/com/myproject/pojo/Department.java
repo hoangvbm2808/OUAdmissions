@@ -52,7 +52,7 @@ public class Department implements Serializable {
     @Size(max = 1000)
     @Column(name = "name")
     private String name;
-    @Size(max = 1000)
+    @Size(max = 10000)
     @Column(name = "education_program")
     private String educationProgram;
     @Size(max = 45)

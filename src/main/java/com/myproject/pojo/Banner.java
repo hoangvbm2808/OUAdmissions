@@ -4,6 +4,7 @@
  */
 package com.myproject.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,12 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author Thanh
+ * @author vbmho
  */
 @Entity
 @Table(name = "banner")
@@ -27,9 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Banner.findAll", query = "SELECT b FROM Banner b"),
     @NamedQuery(name = "Banner.findById", query = "SELECT b FROM Banner b WHERE b.id = :id"),
-    @NamedQuery(name = "Banner.findByName", query = "SELECT b FROM Banner b WHERE b.name = :name"),
-    @NamedQuery(name = "Banner.findByDescription", query = "SELECT b FROM Banner b WHERE b.description = :description"),
-    @NamedQuery(name = "Banner.findByContent", query = "SELECT b FROM Banner b WHERE b.content = :content")})
+    @NamedQuery(name = "Banner.findByTitle", query = "SELECT b FROM Banner b WHERE b.title = :title"),
+    @NamedQuery(name = "Banner.findByUrl", query = "SELECT b FROM Banner b WHERE b.url = :url")})
 public class Banner implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +41,30 @@ public class Banner implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
-    @Column(name = "name")
-    private String name;
-    @Size(max = 45)
-    @Column(name = "description")
-    private String description;
-    @Size(max = 45)
-    @Column(name = "content")
-    private String content;
+    @Column(name = "title")
+    private String title;
+    @Size(max = 100)
+    @Column(name = "url")
+    private String url;
+    
+    @Transient
+    @JsonIgnore
+    private MultipartFile file;
+    
+    //    /**
+//     * @return the file
+//     */
+    public MultipartFile getFile() {
+        return file;
+    }
+//
+//    /**
+//     * @param file the file to set
+//     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
 
     public Banner() {
     }
@@ -63,28 +81,20 @@ public class Banner implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getUrl() {
+        return url;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override

@@ -121,5 +121,17 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
                        value="/WEB-INF/pages/user.jsp" />
     </definition>
     
+    <definition name="banner" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/banner.jsp" />
+    </definition>
+    
+    <definition name="add_banner" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/add_banner.jsp" />
+    </definition>
+    
 </tiles-definitions>
 

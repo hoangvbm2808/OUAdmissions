@@ -60,7 +60,7 @@ public class AdminController {
                 case 0://Index
                     return "redirect:/admin/index";
                 case 1://Banner
-                    return "redirect:/admin/post";
+                    return "redirect:/admin/banners";
                 case 2://Department
                     return "redirect:/admin/departments";
                 case 3://Post

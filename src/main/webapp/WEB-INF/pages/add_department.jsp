@@ -53,7 +53,7 @@
 
             <div class="mt-3">
                 <label for="content"><b>Mô tả</b></label>
-                <div class="form-floating mb-3">
+                <div class="mb-3">
                     <form:textarea rows="5" class="form-control" path="description" id="description"/>
                 </div>
             </div>
@@ -61,7 +61,7 @@
             <div class="mt-3">
                 <label for="content"><b>Website</b></label>
                 <div class="form-floating mb-3">
-                    <form:textarea rows="5" class="form-control" path="website" id="website"/>
+                    <form:textarea class="form-control" path="website" id="website"/>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
 
             <div class="mt-3">
                 <label for="content"><b>Chương trình đào tạo</b></label>
-                <div class="form-floating mb-3">
+                <div class="mb-3">
                     <form:textarea rows="5" class="form-control" path="educationProgram" id="educationProgram"/>
                 </div>
             </div>
