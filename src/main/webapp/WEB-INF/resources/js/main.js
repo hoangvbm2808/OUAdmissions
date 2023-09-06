@@ -55,3 +55,16 @@ function deleteBanner(path) {
     }
 }
 
+function deleteUser(path) {
+    if (confirm("Xóa user sẽ xóa tất cả thông tin liên quan tới user đó.Bạn chắc chắn xóa không?") === true) {
+        fetch(path, {
+            method: "delete"
+        }).then(res => {
+            if (res.status === 204)
+                location.reload();
+            else
+                alert("Something wrong!!!");
+        });
+    }
+}
+
