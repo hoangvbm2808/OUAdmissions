@@ -74,7 +74,7 @@ public class AdminController {
                 case 7://User
                     return "redirect:/admin/user";
                 case 8://Comment
-                    return "redirect:/admin/post";
+                    return "redirect:/admin/comments";
             }
         }
         return "index_admin";

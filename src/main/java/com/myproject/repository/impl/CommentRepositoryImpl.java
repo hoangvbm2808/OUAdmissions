@@ -9,6 +9,7 @@ import com.myproject.pojo.Post;
 import com.myproject.repository.CommentRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -17,6 +18,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentRepositoryImpl implements CommentRepository{
     @Autowired
     LocalSessionFactoryBean factory;
+    @Autowired
+    private Environment env;
     
     @Override
     public List<Object> getComments() {
@@ -98,6 +102,50 @@ public class CommentRepositoryImpl implements CommentRepository{
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Comment> getComments(Map<String, String> params) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Comment> q = b.createQuery(Comment.class);
+        Root root = q.from(Comment.class);
+        q.select(root);
+
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+
+            String postId = params.get("postId");
+            if (postId != null && !postId.isEmpty()) {
+                predicates.add(b.equal(root.get("postId"), Integer.parseInt(postId)));
+            }
+
+            q.where(predicates.toArray(Predicate[]::new));
+        }
+        q.orderBy(b.desc(root.get("id")));
+
+        Query query = s.createQuery(q);
+
+        if (params != null) {
+            String page = params.get("page");
+            if (page == null) {
+                page = "1";
+            }
+            if (!page.equals("0")) {
+                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+                query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
+                query.setMaxResults(pageSize);
+            }
+        }
+
+        return query.getResultList();
+    }
+
+    @Override
+    public int countComment() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("SELECT COUNT(*) FROM Comment");
+        return Integer.parseInt(q.getSingleResult().toString());
     }
     
 }

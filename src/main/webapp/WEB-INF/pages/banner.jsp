@@ -9,7 +9,7 @@
 
 <c:url value="/admin/banners" var="action" />
 <section class="container">
-    <h1 class="text-center text-success mt-1">DANH SÁCH KHOA</h1>
+    <h1 class="text-center text-success mt-1">DANH SÁCH BANNER</h1>
         <a href="<c:url value="/admin/banners/add"/>" class="btn btn-success mt-1 mb-1">THÊM BANNER</a>
 
     <c:if test="${pages > 1}">

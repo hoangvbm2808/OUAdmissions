@@ -9,6 +9,7 @@ import com.myproject.pojo.Comment;
 import com.myproject.repository.CommentRepository;
 import com.myproject.service.CommentService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,16 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Comment getCommentById(int cmtId) {
         return this.commentRepo.getCommentById(cmtId);
+    }
+
+    @Override
+    public List<Comment> getComments(Map<String, String> params) {
+        return this.commentRepo.getComments(params);
+    }
+
+    @Override
+    public int countComment() {
+        return this.commentRepo.countComment();
     }
     
 }
