@@ -63,7 +63,7 @@ public class Department implements Serializable {
     private String introduceVideo;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "average_score")
-    private Double averageScore;
+    private String averageScore;
     @JoinColumn(name = "typeoftrainning_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
@@ -127,11 +127,11 @@ public class Department implements Serializable {
         this.introduceVideo = introduceVideo;
     }
 
-    public Double getAverageScore() {
+    public String getAverageScore() {
         return averageScore;
     }
 
-    public void setAverageScore(Double averageScore) {
+    public void setAverageScore(String averageScore) {
         this.averageScore = averageScore;
     }
 
