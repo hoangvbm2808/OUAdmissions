@@ -88,5 +88,9 @@ public class ApiQuestionController {
         List<Object> questions = this.questionService.getListQuestionsByLive(id);
         return new ResponseEntity<>(questions,HttpStatus.OK);
     }
-                
+    
+    @GetMapping("/questions/getdate")
+    public ResponseEntity<Object> getDate() {
+        return new ResponseEntity<>(this.questionService.getDate().toString(), HttpStatus.OK);
+    }      
 }

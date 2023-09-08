@@ -5,6 +5,7 @@
 package com.myproject.service;
 
 import com.myproject.pojo.Question;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -19,5 +20,6 @@ public interface QuestionService {
     boolean deleteQuestion(int id);
     Question getQuestionById(int questionId);
     List<Object> getListQuestions();
-    
+    LocalDate getDate();
+    void setDate(String d);
 }

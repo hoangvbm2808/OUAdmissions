@@ -4,10 +4,17 @@
  */
 package com.myproject.controllers;
 
+import com.google.gson.Gson;
 import com.myproject.pojo.Post;
 import com.myproject.service.CategoryService;
 import com.myproject.service.PostService;
+import com.myproject.service.QuestionService;
 import com.myproject.service.TypeOfTrainningService;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,6 +32,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.time.format.DateTimeFormatter;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -45,15 +54,45 @@ public class AdminController {
     private TypeOfTrainningService typeService;
     
     @Autowired
+    private QuestionService quesService;
+    
+    @Autowired
     private Environment env;
 
     @ModelAttribute
     public void commonAttr(Model model) {
         model.addAttribute("cates", this.cateService.getCates());
     }
+    
+    @GetMapping("/admin/setdate")
+    public String getDate(Model model) throws ParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+            model.addAttribute("date", formatter.format(this.quesService.getDate()));
+        
+        return "date";
+    }
+    
+    @PostMapping("/admin/setdate")
+    public String setDate(HttpServletRequest request) {
+        String d = request.getParameter("date");
+        System.out.println(d);
+        this.quesService.setDate(d);
+        return "redirect:/admin/setdate";
+    }
 
     @RequestMapping("/admin/index")
     public String index(Model model, @RequestParam Map<String, String> params) {
+//        double post1 = this.postService.getPostByType(1).size()/this.postService.countPosts() * 100;
+//        double post2 = this.postService.getPostByType(2).size()/this.postService.countPosts() * 100;
+//        double post3 = this.postService.getPostByType(3).size()/this.postService.countPosts() * 100;
+//        double post4 = this.postService.getPostByType(4).size()/this.postService.countPosts() * 100;
+//        double post5 = this.postService.getPostByType(5).size()/this.postService.countPosts() * 100;
+//        List<Double> posts = new ArrayList<>();
+//        posts.add(post1);
+//        posts.add(post2);
+//        posts.add(post3);
+//        posts.add(post4);
+//        posts.add(post5);
         if (!params.isEmpty()) {
             int id = Integer.parseInt(params.get("cateId"));
             switch (id) {
@@ -75,6 +114,8 @@ public class AdminController {
                     return "redirect:/admin/user";
                 case 8://Comment
                     return "redirect:/admin/comments";
+                case 9://Comment
+                    return "redirect:/admin/setdate";
             }
         }
         return "index_admin";

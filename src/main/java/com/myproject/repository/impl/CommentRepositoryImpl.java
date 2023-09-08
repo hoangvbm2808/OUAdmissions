@@ -95,7 +95,9 @@ public class CommentRepositoryImpl implements CommentRepository{
     public boolean deleteComment(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         Comment c = this.getCommentById(id);
+        List<Object> list = getCommentByReply(id);
         try {
+            list.forEach(action -> {s.delete(action);});
             s.delete(c);
             return true;
         } catch (HibernateException ex) {
