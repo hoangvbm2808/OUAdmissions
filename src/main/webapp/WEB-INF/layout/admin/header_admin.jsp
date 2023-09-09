@@ -16,13 +16,13 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <c:url value="/admin/index" var="cateId">
+                    <c:url value="/admin/index/cate" var="cateId">
                         <c:param name="cateId" value="0" />
                     </c:url>
-                    <a class="nav-link" href="${cateId}#">Trang chủ</a>
+                    <a class="nav-link" href="${cateId}">Trang chủ</a>
                 </li>
                 <c:forEach items="${cates}" var="c">
-                    <c:url value="/admin/index" var="cateId">
+                    <c:url value="/admin/index/cate" var="cateId">
                         <c:param name="cateId" value="${c.id}" /> 
                     </c:url>
                     <li class="nav-item">
@@ -30,7 +30,7 @@
                     </li>
                 </c:forEach>
                  <li class="nav-item">
-                    <c:url value="/admin/index" var="cateId">
+                    <c:url value="/admin/index/cate" var="cateId">
                         <c:param name="cateId" value="9" />
                     </c:url>
                     <a class="nav-link" href="${cateId}#">Thời gian hỏi</a>
