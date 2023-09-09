@@ -115,7 +115,7 @@ public class User implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "avatar")
     private String avatar;
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "userId")
     @JsonIgnore
     private Set<Question> questionSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")

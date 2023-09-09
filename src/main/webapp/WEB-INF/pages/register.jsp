@@ -87,8 +87,16 @@
 
 <div class="container mt-3">
 
-    <h1>Đăng ký 
-    </h1>
+    
+    <c:choose>
+            <c:when test="${user.id == null}">
+                <h1>Đăng ký </h1>
+            </c:when>
+            <c:otherwise>
+               <h1>Cập nhật tài khoản</h1>
+            </c:otherwise>
+        </c:choose>
+    
 
 
     <c:if test="${errMsg != null}">
@@ -131,7 +139,7 @@
             <c:otherwise>
                 <label for="password"><b>Mật khẩu</b></label>
                 <form:errors path="password" element="div" cssClass="text-danger" />
-                <form:input type="password" placeholder="Nhập mật khẩu" path="password" required="required" autocomplete="off" id="password" disabled="true"/>
+                <form:input type="password" placeholder="Nhập mật khẩu" path="password" readonly="true" autocomplete="off" id="password" />
             </c:otherwise>
         </c:choose>
 

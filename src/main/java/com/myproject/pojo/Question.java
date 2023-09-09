@@ -4,7 +4,9 @@
  */
 package com.myproject.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Transient;
 
 /**
  *
@@ -51,6 +54,8 @@ public class Question implements Serializable {
     @ManyToOne
     private User userId;
     
+    @Transient
+    private static LocalDate date;
 
     public Question() {
     }
@@ -122,6 +127,23 @@ public class Question implements Serializable {
 
     public void setAnswer(Integer answer) {
         this.answer = answer;
+    }
+
+    /**
+     * @return the date
+     */
+    public LocalDate getDate() {
+        if(date == null) {
+            date = LocalDate.now();
+        }
+        return date;
+    }
+
+    /**
+     * @param aDate the date to set
+     */
+    public void setDate(LocalDate aDate) {
+        date = aDate;
     }
     
 }

@@ -7,6 +7,7 @@ package com.myproject.service.impl;
 import com.myproject.pojo.Question;
 import com.myproject.repository.QuestionRepository;
 import com.myproject.service.QuestionService;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,19 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Object> getListQuestionsForQuestion(Map<String, String> params) {
         return this.questionRepo.getListQuestionsForQuestion(params);
+    }
+
+    @Override
+    public LocalDate getDate() {
+        Question q = new Question();
+        return q.getDate();
+    }
+
+    @Override
+    public void setDate(String d) {
+        Question q = new Question();
+        LocalDate localDate = LocalDate.parse(d);
+        q.setDate(localDate);
     }
     
 

@@ -114,4 +114,9 @@ public class ApiQuestionController {
         Object questions = this.questionService.getQuestionById(id);
         return new ResponseEntity<>(questions,HttpStatus.OK);
     }
+    
+    @GetMapping("/questions/getdate")
+    public ResponseEntity<Object> getDate() {
+        return new ResponseEntity<>(this.questionService.getDate().toString(), HttpStatus.OK);
+    }      
 }

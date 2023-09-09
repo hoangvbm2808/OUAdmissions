@@ -5,6 +5,7 @@
 package com.myproject.service;
 
 import com.myproject.pojo.Question;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,6 @@ public interface QuestionService {
     List<Object> getListQuestionsForQuestionAndAnswer();
     int countQuetionsNotLive();
     List<Question> getQuestions(Map<String, String> params);
+    LocalDate getDate();
+    void setDate(String d);
 }
