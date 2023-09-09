@@ -75,7 +75,6 @@ public class UserController {
                 .forEach(e -> System.out.println(
                         "field: " + e.getField() + ", rejected value: " + e.getRejectedValue()));
         if (!rs.hasErrors()) {
-            
                 user.setAvatar("https://res.cloudinary.com/dohcsyfoi/image/upload/v1690968439/j993fbu6dekru6b4dqto.jpg");
                 if (user.getId() == null) {
                     

@@ -59,7 +59,7 @@ public class IndexController {
     @RequestMapping("/post_index")
     public String postIndex(Model model, @RequestParam Map<String, String> params) {
         int id = Integer.parseInt(params.get("typeoftrainningId").toString());
-        model.addAttribute("posts", this.postService.getPostByType(id));
+        model.addAttribute("posts", this.postService.getPostByType(id, params));
         return "post_index";
     }
    
