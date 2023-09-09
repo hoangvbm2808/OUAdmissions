@@ -132,25 +132,25 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         return query.getResultList();
     }
     
-    @Override
-    public List<Object> getListQuestionsForQuestionAndAnswer() {
-        Session s = this.factory.getObject().openSession();
-//        Query q = s.createQuery("FROM Question");
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Question> q = b.createQuery(Question.class);
-        
-        Root<Question> root = q.from(Question.class);
-        q.select(root);
-        
-        List<Predicate> predicates = new ArrayList<>();
-        predicates.add(b.notEqual(root.get("answer"), 0));
-        predicates.add(b.isNull(root.get("livestreamId")));
-        q.select(root).where(predicates.toArray(Predicate[]::new));
-        
-        Query query = s.createQuery(q);
-        
-        return query.getResultList();
-    }
+//    @Override
+//    public List<Object> getListQuestionsForQuestionAndAnswer() {
+//        Session s = this.factory.getObject().openSession();
+////        Query q = s.createQuery("FROM Question");
+//        CriteriaBuilder b = s.getCriteriaBuilder();
+//        CriteriaQuery<Question> q = b.createQuery(Question.class);
+//        
+//        Root<Question> root = q.from(Question.class);
+//        q.select(root);
+//        
+//        List<Predicate> predicates = new ArrayList<>();
+//        predicates.add(b.notEqual(root.get("answer"), 0));
+//        predicates.add(b.isNull(root.get("livestreamId")));
+//        q.select(root).where(predicates.toArray(Predicate[]::new));
+//        
+//        Query query = s.createQuery(q);
+//        
+//        return query.getResultList();
+//    }
     
     @Override
     public int countQuetionsNotLive() {

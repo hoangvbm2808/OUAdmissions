@@ -77,9 +77,5 @@ public class QuestionServiceImpl implements QuestionService {
         return this.questionRepo.getQuestions(params);
     }
 
-    @Override
-    public List<Object> getListQuestionsForQuestionAndAnswer() {
-        return this.questionRepo.getListQuestionsForQuestionAndAnswer();
-    }
 
 }

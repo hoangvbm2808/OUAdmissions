@@ -50,30 +50,17 @@ public class ApiQuestionController {
     @Autowired
     private Environment env;
     
-//    @GetMapping("/questions/")
-//    public ResponseEntity<List<Object>> getListQuestions(@RequestParam Map<String, String> params) {
-//        List<Object> questions = this.questionService.getListQuestionsForQuestion(params);
+//    @GetMapping("/answers/")
+//    public ResponseEntity<List<Object>> getListAnswers() {
 //        List<Object> questionsAndAnswer = this.questionService.getListQuestionsForQuestionAndAnswer();
-//        int count = this.questionService.countQuetionsNotLive();
-//        System.out.println(count);
-//        System.out.println(questions);
-////        System.out.println(questionsAndAnswer);
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_QUESTION_SIZE"));
-//        double totalPages = Math.ceil(count*1.0/pageSize);
-//        
-//        //Tạo hashmap để chứa list và page
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("questions", questions);
-//        response.put("pages", totalPages);
-//        response.put("questionsAndAnswer", questionsAndAnswer);
-//        
-//        return new ResponseEntity<>(questions, HttpStatus.OK);
+//        System.out.println(">>>>>>>>>" + questionsAndAnswer);
+//        return new ResponseEntity<>(questionsAndAnswer, HttpStatus.OK);
 //    }
     
     @GetMapping("/questions/")
     public ResponseEntity<Map<String, Object>> getListQuestions(@RequestParam Map<String, String> params) {
         List<Object> questions = this.questionService.getListQuestionsForQuestion(params);
-        List<Object> questionsAndAnswer = this.questionService.getListQuestionsForQuestionAndAnswer();
+//        List<Object> questionsAndAnswer = this.questionService.getListQuestionsForQuestionAndAnswer();
         int count = this.questionService.countQuetionsNotLive();
         System.out.println(count);
         System.out.println(questions);
@@ -85,7 +72,7 @@ public class ApiQuestionController {
         Map<String, Object> response = new HashMap<>();
         response.put("questions", questions);
         response.put("pages", totalPages);
-        response.put("questionsAndAnswer", questionsAndAnswer);
+//        response.put("questionsAndAnswer", questionsAndAnswer);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
