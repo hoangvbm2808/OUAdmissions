@@ -8,6 +8,7 @@ import com.myproject.pojo.Livestream;
 import com.myproject.repository.LiveStreamRepository;
 import com.myproject.service.LiveStreamService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,21 @@ public class LiveStreamServiceImpl implements LiveStreamService{
     @Override
     public boolean addLive(Livestream l) {
         return this.liveRepo.addLive(l);
+    }
+
+    @Override
+    public List<Livestream> getLivestreams(Map<String, String> params) {
+        return this.liveRepo.getLivestreams(params);
+    }
+
+    @Override
+    public int countLiveStreams() {
+        return this.liveRepo.countLiveStreams();
+    }
+
+    @Override
+    public boolean deleteLive(int id) {
+        return this.liveRepo.deleteLive(id);
     }
     
 }

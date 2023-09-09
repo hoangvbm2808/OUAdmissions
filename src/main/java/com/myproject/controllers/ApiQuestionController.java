@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,26 +50,45 @@ public class ApiQuestionController {
     @Autowired
     private Environment env;
     
-    @GetMapping("/questions/")
-    public ResponseEntity<List<Object>> getListQuestions() {
-        System.out.println(this.questionService.getListQuestions().size());
-        return new ResponseEntity<>(this.questionService.getListQuestions(), HttpStatus.OK);
-    }
+//    @GetMapping("/questions/")
+//    public ResponseEntity<List<Object>> getListQuestions(@RequestParam Map<String, String> params) {
+//        List<Object> questions = this.questionService.getListQuestionsForQuestion(params);
+//        List<Object> questionsAndAnswer = this.questionService.getListQuestionsForQuestionAndAnswer();
+//        int count = this.questionService.countQuetionsNotLive();
+//        System.out.println(count);
+//        System.out.println(questions);
+////        System.out.println(questionsAndAnswer);
+//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_QUESTION_SIZE"));
+//        double totalPages = Math.ceil(count*1.0/pageSize);
+//        
+//        //Tạo hashmap để chứa list và page
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("questions", questions);
+//        response.put("pages", totalPages);
+//        response.put("questionsAndAnswer", questionsAndAnswer);
+//        
+//        return new ResponseEntity<>(questions, HttpStatus.OK);
+//    }
     
-    @PostMapping("/questions/")
-    public ResponseEntity<Object> addQuestion(@RequestBody Question q) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        User u = (User) this.userService.getUserById(3);
-        if (this.questionService.addOrUpdateQuestion(q) != null) {
-            if (q.getAnswer() == 0) {
-            message.setTo("jennythanh2001@gmail.com"); //Gửi tới mail người tư vấn dưới sql
-            message.setSubject("Có sinh viên đặt câu hỏi mới!!!"); //Tựa đề mail
-            message.setText(q.getContent()); //Nội dung của mail
-            this.emailSender.send(message); //Gửi
-            }
-        }
-        return new ResponseEntity<>(q, HttpStatus.OK);
+    @GetMapping("/questions/")
+    public ResponseEntity<Map<String, Object>> getListQuestions(@RequestParam Map<String, String> params) {
+        List<Object> questions = this.questionService.getListQuestionsForQuestion(params);
+        List<Object> questionsAndAnswer = this.questionService.getListQuestionsForQuestionAndAnswer();
+        int count = this.questionService.countQuetionsNotLive();
+        System.out.println(count);
+        System.out.println(questions);
+//        System.out.println(questionsAndAnswer);
+        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_QUESTION_SIZE"));
+        double totalPages = Math.ceil(count*1.0/pageSize);
+        
+        //Tạo hashmap để chứa list và page
+        Map<String, Object> response = new HashMap<>();
+        response.put("questions", questions);
+        response.put("pages", totalPages);
+        response.put("questionsAndAnswer", questionsAndAnswer);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     
     @PostMapping("/questions/{id}")
     public ResponseEntity<Object> update(@PathVariable(value = "id") int id, @RequestBody Question question) {
@@ -79,13 +99,19 @@ public class ApiQuestionController {
     
     @DeleteMapping("/questions/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePost(@PathVariable(value = "id") int id) {
+    public void deleteQuestion(@PathVariable(value = "id") int id) {
         this.questionService.deleteQuestion(id);
     }
     
     @GetMapping("/live_info/{id}/questions")
     public ResponseEntity<List<Object>> listQuestions(@PathVariable(value = "id") int id) {
         List<Object> questions = this.questionService.getListQuestionsByLive(id);
+        return new ResponseEntity<>(questions,HttpStatus.OK);
+    }
+     
+    @GetMapping("/questions/{id}")
+    public ResponseEntity<Object> getQuestionById(@PathVariable(value = "id") int id) {
+        Object questions = this.questionService.getQuestionById(id);
         return new ResponseEntity<>(questions,HttpStatus.OK);
     }
     

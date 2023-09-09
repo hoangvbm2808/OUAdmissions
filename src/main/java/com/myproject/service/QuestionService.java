@@ -19,7 +19,10 @@ public interface QuestionService {
     List<Object> getQuestionByAnswer(int answer);
     boolean deleteQuestion(int id);
     Question getQuestionById(int questionId);
-    List<Object> getListQuestions();
+    List<Object> getListQuestionsForQuestion(Map<String, String> params);
+    List<Object> getListQuestionsForQuestionAndAnswer();
+    int countQuetionsNotLive();
+    List<Question> getQuestions(Map<String, String> params);
     LocalDate getDate();
     void setDate(String d);
 }

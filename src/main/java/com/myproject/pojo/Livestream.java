@@ -20,6 +20,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -35,16 +38,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     @NamedQuery(name = "Livestream.findByContent", query = "SELECT l FROM Livestream l WHERE l.content = :content")})
 public class Livestream implements Serializable {
 
+    @Column(name = "date")
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(max = 200)
     @Column(name = "title")
     private String title;
-    @Size(max = 45)
+    @Size(max = 500)
     @Column(name = "content")
     private String content;
     @OneToMany(mappedBy = "livestreamId")
@@ -115,5 +122,13 @@ public class Livestream implements Serializable {
     public String toString() {
         return "com.myproject.pojo.Livestream[ id=" + id + " ]";
     }
-    
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
 }

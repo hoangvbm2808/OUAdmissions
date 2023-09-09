@@ -6,6 +6,7 @@ package com.myproject.repository;
 
 import com.myproject.pojo.Livestream;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,4 +16,7 @@ public interface LiveStreamRepository {
     List<Object> getLiveStreams();
     Object getLiveById(int id);
     boolean addLive(Livestream l);
+    List<Livestream> getLivestreams(Map<String, String> params);
+    int countLiveStreams();
+    boolean deleteLive(int id);
 }

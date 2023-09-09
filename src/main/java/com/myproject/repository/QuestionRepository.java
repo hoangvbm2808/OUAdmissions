@@ -14,10 +14,12 @@ import java.util.Map;
  */
 public interface QuestionRepository {
     Question addOrUpdateQuestion(Question q);
-    List<Object> getListQuestionsByLive (int liveId);
+    List<Object> getListQuestionsByLive(int liveId);
     List<Object> getQuestionByAnswer(int answer);
     boolean deleteQuestion(int id);
     Question getQuestionById(int questionId);
-    List<Object> getListQuestions();
-//    List<Object> getListQuestions(Map<String, String> params);
+    List<Object> getListQuestionsForQuestion(Map<String, String> params);
+    List<Object> getListQuestionsForQuestionAndAnswer();
+    int countQuetionsNotLive();
+    List<Question> getQuestions(Map<String, String> params);
 }

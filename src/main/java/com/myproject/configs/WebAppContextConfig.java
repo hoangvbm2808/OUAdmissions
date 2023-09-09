@@ -11,6 +11,7 @@ import com.myproject.formatter.UserFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -77,12 +78,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //        
 //        return r;
 //    }
+
     
-//    @Bean
-//    public SimpleDateFormat simpleDateFormat() {
-//        return new SimpleDateFormat("yyyy-MM-dd");
-//    }
-//    
     
     @Bean
     public CommonsMultipartResolver multipartResolver() {

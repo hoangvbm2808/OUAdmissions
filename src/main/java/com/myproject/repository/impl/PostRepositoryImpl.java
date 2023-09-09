@@ -46,9 +46,8 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Object> getPostByType(int typeoftrainningId
-//            , Map<String, String> params
-    ) {
+    public List<Object> getPostByType(int typeoftrainningId, 
+            Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
@@ -62,17 +61,17 @@ public class PostRepositoryImpl implements PostRepository {
 
         Query query = s.createQuery(q);
         
-//        if (params != null) {
-//            String page = params.get("page");
-//            if (page == null) {
-//                page = "1";
-//            }
-//            if (!page.equals("0")) {
-//                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//                query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
-//                query.setMaxResults(pageSize);
-//            }
-//        }
+        if (params != null) {
+            String page = params.get("page");
+            if (page == null) {
+                page = "1";
+            }
+            if (!page.equals("0")) {
+                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+                query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
+                query.setMaxResults(pageSize);
+            }
+        }
         
         return query.getResultList();
     }

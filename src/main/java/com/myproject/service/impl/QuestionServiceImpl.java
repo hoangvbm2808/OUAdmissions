@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class QuestionServiceImpl implements QuestionService {
+
     @Autowired
     private QuestionRepository questionRepo;
 
@@ -48,8 +49,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Object> getListQuestions() {
-        return this.questionRepo.getListQuestions();
+    public List<Object> getListQuestionsForQuestion(Map<String, String> params) {
+        return this.questionRepo.getListQuestionsForQuestion(params);
     }
 
     @Override
@@ -65,4 +66,20 @@ public class QuestionServiceImpl implements QuestionService {
         q.setDate(localDate);
     }
     
+
+    @Override
+    public int countQuetionsNotLive() {
+        return this.questionRepo.countQuetionsNotLive();
+    }
+
+    @Override
+    public List<Question> getQuestions(Map<String, String> params) {
+        return this.questionRepo.getQuestions(params);
+    }
+
+    @Override
+    public List<Object> getListQuestionsForQuestionAndAnswer() {
+        return this.questionRepo.getListQuestionsForQuestionAndAnswer();
+    }
+
 }

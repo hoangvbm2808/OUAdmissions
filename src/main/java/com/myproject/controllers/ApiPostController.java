@@ -59,19 +59,18 @@ public class ApiPostController {
     }
     
     @GetMapping("/getPostByType/{id}")
-    public ResponseEntity<List<Object>> getPostByType(@PathVariable(value = "id") int id
-//            @RequestParam Map<String, String> params
-    ) {
-        List<Object> posts = this.postService.getPostByType(id);
-//        int count = this.postService.getPostByType(id, null).size();
-//        System.out.println(count);
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//        double totalPages = Math.ceil(count*1.0/pageSize);
-//
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("posts", posts);
-//        response.put("pages", totalPages);
-        return new ResponseEntity<>(posts, HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getPostByType(@PathVariable(value = "id") int id,
+            @RequestParam Map<String, String> params) {
+        List<Object> posts = this.postService.getPostByType(id, params);
+        int count = this.postService.getPostByType(id, null).size();
+        System.out.println(count);
+        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
+        double totalPages = Math.ceil(count*1.0/pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("posts", posts);
+        response.put("pages", totalPages);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @RequestMapping("/post_info/{id}")

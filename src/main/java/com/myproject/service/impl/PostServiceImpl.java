@@ -29,9 +29,9 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<Object> getPostByType(int typeoftrainningId
-//            , Map<String, String> params
+            , Map<String, String> params
     ) {
-        return this.postRepo.getPostByType(typeoftrainningId);
+        return this.postRepo.getPostByType(typeoftrainningId, params);
     }
 
     @Override

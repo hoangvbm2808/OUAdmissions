@@ -132,7 +132,30 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content"
                        value="/WEB-INF/pages/add_banner.jsp" />
     </definition>
+
+    <definition name="livestream_admin" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/livestream_admin.jsp" />
+    </definition>
+    <definition name="add_livestream" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/add_livestream.jsp" />
+    </definition>
     
+<!--    <definition name="livestream_admin" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/livestream_admin.jsp" />
+    </definition>-->
+    
+    <definition name="question_admin" extends="baseAdmin">
+        <put-attribute name="title" value="Quản trị OUAdmissions"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/question_admin.jsp" />
+    </definition>
+
     <definition name="comment" extends="baseAdmin">
         <put-attribute name="title" value="Quản trị OUAdmissions"/>
         <put-attribute name="content"
@@ -149,6 +172,5 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content"
                        value="/WEB-INF/pages/date.jsp" />
     </definition>
-    
 </tiles-definitions>
 
