@@ -114,11 +114,11 @@ public class AdminController {
     @GetMapping("/admin/index")
     public String home(Model model) {
         List<Integer> posts = new ArrayList<>();
-        posts.add(this.postService.getPostByType(1).size());
-        posts.add(this.postService.getPostByType(2).size());
-        posts.add(this.postService.getPostByType(3).size());
-        posts.add(this.postService.getPostByType(4).size());
-        posts.add(this.postService.getPostByType(5).size());
+        posts.add(this.postService.getPostByType(1, null).size());
+        posts.add(this.postService.getPostByType(2, null).size());
+        posts.add(this.postService.getPostByType(3, null).size());
+        posts.add(this.postService.getPostByType(4, null).size());
+        posts.add(this.postService.getPostByType(5, null).size());
         model.addAttribute("postbytype", posts);
         return "index_admin";
     }

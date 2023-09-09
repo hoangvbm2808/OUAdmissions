@@ -80,6 +80,30 @@ function deleteComment(path) {
         });
     }
 }
+function deleteLivestream(path) {
+    if (confirm("Bạn chắc chắn xóa không?") === true) {
+        fetch(path, {
+            method: "delete"
+        }).then(res => {
+            if (res.status === 204)
+                location.reload();
+            else
+                alert("Something wrong!!!");
+        });
+    }
+}
+function deleteQuestion(path) {
+    if (confirm("Bạn chắc chắn xóa không?") === true) {
+        fetch(path, {
+            method: "delete"
+        }).then(res => {
+            if (res.status === 204)
+                location.reload();
+            else
+                alert("Something wrong!!!");
+        });
+    }
+}
 
 function randomColor() {
     let r = parseInt(Math.random() * 255);
