@@ -42,7 +42,7 @@ public class Department implements Serializable {
 
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "average_score")
-    private Double averageScore;
+    private String averageScore;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -177,11 +177,11 @@ public class Department implements Serializable {
         this.file = file;
     }
 
-    public Double getAverageScore() {
+    public String getAverageScore() {
         return averageScore;
     }
 
-    public void setAverageScore(Double averageScore) {
+    public void setAverageScore(String averageScore) {
         this.averageScore = averageScore;
     }
     

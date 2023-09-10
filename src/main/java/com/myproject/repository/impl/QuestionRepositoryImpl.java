@@ -163,9 +163,16 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         Root root = q.from(Question.class);
         q.select(root);
 
-        List<Predicate> predicates = new ArrayList<>();
-        predicates.add(b.isNotNull(root.get("livestreamId")));
-        q.where(predicates.toArray(Predicate[]::new));
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+
+            String livestreamId = params.get("livestreamId");
+            if (livestreamId != null && !livestreamId.isEmpty()) {
+                predicates.add(b.equal(root.get("livestreamId"), Integer.parseInt(livestreamId)));
+            }
+
+            q.where(predicates.toArray(Predicate[]::new));
+        }
         q.orderBy(b.desc(root.get("id")));
 
         Query query = s.createQuery(q);
@@ -193,16 +200,10 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         Root root = q.from(Question.class);
         q.select(root);
 
-        if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(b.isNotNull(root.get("livestreamId")));
+        q.where(predicates.toArray(Predicate[]::new));
 
-            String livestreamId = params.get("livestreamId");
-            if (livestreamId != null && !livestreamId.isEmpty()) {
-                predicates.add(b.equal(root.get("livestreamId"), Integer.parseInt(livestreamId)));
-            }
-
-            q.where(predicates.toArray(Predicate[]::new));
-        }
         q.orderBy(b.desc(root.get("id")));
 
         Query query = s.createQuery(q);

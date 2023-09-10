@@ -80,7 +80,7 @@ public class ApiQuestionController {
         User u = (User) this.userService.getUserById(3);
         if (this.questionService.addOrUpdateQuestion(question) != null) {
             if (question.getAnswer() == 0) {
-            message.setTo("jennythanh2001@gmail.com"); //Gửi tới mail người tư vấn dưới sql
+            message.setTo(u.getEmail()); //Gửi tới mail người tư vấn dưới sql
             message.setSubject("Có sinh viên đặt câu hỏi mới!!!"); //Tựa đề mail
             message.setText(question.getContent()); //Nội dung của mail
             this.emailSender.send(message); //Gửi
@@ -113,7 +113,18 @@ public class ApiQuestionController {
     }      
     
     @GetMapping("/questionsForLive/")
-    public ResponseEntity<List<Object>> getQuestionsForLive(@RequestParam Map<String, String> params) {
-        return new ResponseEntity<>(this.questionService.getQuestionForLive(params), HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getQuestionsForLive(@RequestParam Map<String, String> params) {
+        List<Object> questionsForLive = this.questionService.getQuestionForLive(params);
+        long count = this.questionService.getQuestionForLive(null).size();
+        System.out.println(count);
+        System.out.println(questionsForLive);
+        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_QUESTION_SIZE"));
+        double totalPages = Math.ceil(count*1.0/pageSize);
+        
+        //Tạo hashmap để chứa list và page
+        Map<String, Object> response = new HashMap<>();
+        response.put("questions", questionsForLive);
+        response.put("pages", totalPages);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }     
 }
