@@ -25,4 +25,5 @@ public interface QuestionService {
     List<Question> getQuestions(Map<String, String> params);
     LocalDate getDate();
     void setDate(String d);
+    List<Object> getQuestionForLive(Map<String, String> params);
 }

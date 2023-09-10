@@ -77,5 +77,10 @@ public class QuestionServiceImpl implements QuestionService {
         return this.questionRepo.getQuestions(params);
     }
 
+    @Override
+    public List<Object> getQuestionForLive(Map<String, String> params) {
+        return this.questionRepo.getQuestionForLive(params);
+    }
+
 
 }

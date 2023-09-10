@@ -101,4 +101,9 @@ public class ApiQuestionController {
     public ResponseEntity<Object> getDate() {
         return new ResponseEntity<>(this.questionService.getDate().toString(), HttpStatus.OK);
     }      
+    
+    @GetMapping("/questionsForLive/")
+    public ResponseEntity<List<Object>> getQuestionsForLive(@RequestParam Map<String, String> params) {
+        return new ResponseEntity<>(this.questionService.getQuestionForLive(params), HttpStatus.OK);
+    }     
 }

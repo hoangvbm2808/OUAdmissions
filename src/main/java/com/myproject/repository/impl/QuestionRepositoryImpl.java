@@ -117,7 +117,6 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         q.select(root);
 
         List<Predicate> predicates = new ArrayList<>();
-//        predicates.add(b.equal(root.get("answer"), 0));
         predicates.add(b.isNull(root.get("livestreamId")));
         q.where(predicates.toArray(Predicate[]::new));
 
@@ -138,25 +137,6 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         return query.getResultList();
     }
 
-//    @Override
-//    public List<Object> getListQuestionsForQuestionAndAnswer() {
-//        Session s = this.factory.getObject().openSession();
-////        Query q = s.createQuery("FROM Question");
-//        CriteriaBuilder b = s.getCriteriaBuilder();
-//        CriteriaQuery<Question> q = b.createQuery(Question.class);
-//        
-//        Root<Question> root = q.from(Question.class);
-//        q.select(root);
-//        
-//        List<Predicate> predicates = new ArrayList<>();
-//        predicates.add(b.notEqual(root.get("answer"), 0));
-//        predicates.add(b.isNull(root.get("livestreamId")));
-//        q.select(root).where(predicates.toArray(Predicate[]::new));
-//        
-//        Query query = s.createQuery(q);
-//        
-//        return query.getResultList();
-//    }
     @Override
     public Long countQuetionsNotLive() {
         Session session = this.factory.getObject().getCurrentSession();
@@ -177,6 +157,36 @@ public class QuestionRepositoryImpl implements QuestionRepository {
 
     @Override
     public List<Question> getQuestions(Map<String, String> params) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Question> q = b.createQuery(Question.class);
+        Root root = q.from(Question.class);
+        q.select(root);
+
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(b.isNotNull(root.get("livestreamId")));
+        q.where(predicates.toArray(Predicate[]::new));
+        q.orderBy(b.desc(root.get("id")));
+
+        Query query = s.createQuery(q);
+
+        if (params != null) {
+            String page = params.get("page");
+            if (page == null) {
+                page = "1";
+            }
+            if (!page.equals("0")) {
+                int pageSize = Integer.parseInt(this.env.getProperty("PAGE_QUESTION_SIZE"));
+                query.setFirstResult((Integer.parseInt(page) - 1) * pageSize);
+                query.setMaxResults(pageSize);
+            }
+        }
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Object> getQuestionForLive(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Question> q = b.createQuery(Question.class);

@@ -22,4 +22,5 @@ public interface QuestionRepository {
 //    List<Object> getListQuestionsForQuestionAndAnswer();
     Long countQuetionsNotLive();
     List<Question> getQuestions(Map<String, String> params);
+    List<Object> getQuestionForLive(Map<String, String> params);
 }
