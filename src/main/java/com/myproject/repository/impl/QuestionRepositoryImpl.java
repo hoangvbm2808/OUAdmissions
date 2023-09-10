@@ -32,9 +32,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class QuestionRepositoryImpl implements QuestionRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Autowired
     private Environment env;
 
@@ -43,6 +44,11 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         Session s = this.factory.getObject().getCurrentSession();
         try {
             if (q.getId() == null) {
+                if (q.getStyle() == false) {
+                    Question ques = this.getQuestionById(q.getAnswer());
+                    ques.setAnswer(1);
+                    s.update(ques);
+                }
                 s.save(q);
                 System.out.println("Add success!!");
             } else {
@@ -106,17 +112,17 @@ public class QuestionRepositoryImpl implements QuestionRepository {
 //        Query q = s.createQuery("FROM Question");
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Question> q = b.createQuery(Question.class);
-        
+
         Root<Question> root = q.from(Question.class);
         q.select(root);
-        
+
         List<Predicate> predicates = new ArrayList<>();
-        predicates.add(b.equal(root.get("answer"), 0));
+//        predicates.add(b.equal(root.get("answer"), 0));
         predicates.add(b.isNull(root.get("livestreamId")));
-        q.select(root).where(predicates.toArray(Predicate[]::new));
-        
+        q.where(predicates.toArray(Predicate[]::new));
+
         Query query = s.createQuery(q);
-        
+
         if (params != null) {
             String page = params.get("page");
             if (page == null) {
@@ -128,10 +134,10 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                 query.setMaxResults(pageSize);
             }
         }
-        
+
         return query.getResultList();
     }
-    
+
 //    @Override
 //    public List<Object> getListQuestionsForQuestionAndAnswer() {
 //        Session s = this.factory.getObject().openSession();
@@ -151,14 +157,24 @@ public class QuestionRepositoryImpl implements QuestionRepository {
 //        
 //        return query.getResultList();
 //    }
-    
     @Override
-    public int countQuetionsNotLive() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("SELECT COUNT(*) FROM Question WHERE livestreamId is null");
-        return Integer.parseInt(q.getSingleResult().toString());
+    public Long countQuetionsNotLive() {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<Long> q = b.createQuery(Long.class);
+
+        Root r = q.from(Question.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(b.isNull(r.get("livestreamId")));
+        predicates.add(b.equal(r.get("style"), 1));
+        q.select(b.count(r)).where(predicates.toArray(new Predicate[0]));
+
+        long count = session.createQuery(q).uniqueResult();
+        return count;
     }
-    
+
     @Override
     public List<Question> getQuestions(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();

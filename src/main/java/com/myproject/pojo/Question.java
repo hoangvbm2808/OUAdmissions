@@ -35,6 +35,9 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Question.findByContent", query = "SELECT q FROM Question q WHERE q.content = :content")})
 public class Question implements Serializable {
 
+    @Column(name = "style")
+    private Boolean style;
+
     @Column(name = "answer")
     private Integer answer;
 
@@ -44,7 +47,7 @@ public class Question implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(max = 1000)
     @Column(name = "content")
     private String content;
     @JoinColumn(name = "livestream_id", referencedColumnName = "id")
@@ -144,6 +147,14 @@ public class Question implements Serializable {
      */
     public void setDate(LocalDate aDate) {
         date = aDate;
+    }
+
+    public Boolean getStyle() {
+        return style;
+    }
+
+    public void setStyle(Boolean style) {
+        this.style = style;
     }
     
 }

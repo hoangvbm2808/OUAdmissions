@@ -6,6 +6,8 @@ package com.myproject.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.myproject.formatter.PostFormatter;
 import com.myproject.formatter.UserFormatter;
 import java.text.SimpleDateFormat;
@@ -132,4 +134,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new UserFormatter());
     }
     
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
+    }
 }

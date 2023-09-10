@@ -50,21 +50,12 @@ public class ApiQuestionController {
     @Autowired
     private Environment env;
     
-//    @GetMapping("/answers/")
-//    public ResponseEntity<List<Object>> getListAnswers() {
-//        List<Object> questionsAndAnswer = this.questionService.getListQuestionsForQuestionAndAnswer();
-//        System.out.println(">>>>>>>>>" + questionsAndAnswer);
-//        return new ResponseEntity<>(questionsAndAnswer, HttpStatus.OK);
-//    }
-    
     @GetMapping("/questions/")
     public ResponseEntity<Map<String, Object>> getListQuestions(@RequestParam Map<String, String> params) {
         List<Object> questions = this.questionService.getListQuestionsForQuestion(params);
-//        List<Object> questionsAndAnswer = this.questionService.getListQuestionsForQuestionAndAnswer();
-        int count = this.questionService.countQuetionsNotLive();
+        long count = this.questionService.countQuetionsNotLive();
         System.out.println(count);
         System.out.println(questions);
-//        System.out.println(questionsAndAnswer);
         int pageSize = Integer.parseInt(this.env.getProperty("PAGE_QUESTION_SIZE"));
         double totalPages = Math.ceil(count*1.0/pageSize);
         
@@ -72,16 +63,20 @@ public class ApiQuestionController {
         Map<String, Object> response = new HashMap<>();
         response.put("questions", questions);
         response.put("pages", totalPages);
-//        response.put("questionsAndAnswer", questionsAndAnswer);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    
     
     @PostMapping("/questions/{id}")
     public ResponseEntity<Object> update(@PathVariable(value = "id") int id, @RequestBody Question question) {
         Question c = this.questionService.getQuestionById(id);
         c.setContent(question.getContent());
         return new ResponseEntity<>(this.questionService.addOrUpdateQuestion(c),HttpStatus.OK);
+    }
+    
+    @PostMapping("/questions/")
+    public ResponseEntity<Object> add(@RequestBody Question question) {
+        return new ResponseEntity<>(this.questionService.addOrUpdateQuestion(question),HttpStatus.OK);
     }
     
     @DeleteMapping("/questions/{id}")

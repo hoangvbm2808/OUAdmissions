@@ -21,7 +21,7 @@ public interface QuestionService {
     Question getQuestionById(int questionId);
     List<Object> getListQuestionsForQuestion(Map<String, String> params);
 //    List<Object> getListQuestionsForQuestionAndAnswer();
-    int countQuetionsNotLive();
+    Long countQuetionsNotLive();
     List<Question> getQuestions(Map<String, String> params);
     LocalDate getDate();
     void setDate(String d);

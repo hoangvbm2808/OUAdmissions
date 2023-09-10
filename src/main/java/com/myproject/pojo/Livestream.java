@@ -55,6 +55,7 @@ public class Livestream implements Serializable {
     @Column(name = "content")
     private String content;
     @OneToMany(mappedBy = "livestreamId")
+    @JsonIgnore
     private Set<Question> questionSet;
 
     public Livestream() {

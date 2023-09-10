@@ -68,7 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
     
 
     @Override
-    public int countQuetionsNotLive() {
+    public Long countQuetionsNotLive() {
         return this.questionRepo.countQuetionsNotLive();
     }
 

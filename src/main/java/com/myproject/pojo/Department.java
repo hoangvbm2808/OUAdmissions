@@ -40,6 +40,10 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Department.findByAverageScore", query = "SELECT d FROM Department d WHERE d.averageScore = :averageScore")})
 public class Department implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "average_score")
+    private Double averageScore;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,8 +66,7 @@ public class Department implements Serializable {
     @Column(name = "introduce_video")
     private String introduceVideo;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "average_score")
-    private String averageScore;
+    
     @JoinColumn(name = "typeoftrainning_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIgnore
@@ -127,14 +130,6 @@ public class Department implements Serializable {
         this.introduceVideo = introduceVideo;
     }
 
-    public String getAverageScore() {
-        return averageScore;
-    }
-
-    public void setAverageScore(String averageScore) {
-        this.averageScore = averageScore;
-    }
-
     public Typeoftrainning getTypeoftrainningId() {
         return typeoftrainningId;
     }
@@ -180,6 +175,14 @@ public class Department implements Serializable {
      */
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public Double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(Double averageScore) {
+        this.averageScore = averageScore;
     }
     
 }

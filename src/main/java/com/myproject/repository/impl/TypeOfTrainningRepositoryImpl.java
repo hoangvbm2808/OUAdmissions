@@ -8,7 +8,6 @@ import com.myproject.pojo.Department;
 import com.myproject.pojo.Typeoftrainning;
 import com.myproject.repository.TypeOfTrainningRepository;
 import java.util.List;
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

@@ -68,7 +68,6 @@ public class AdminController {
     public String getDate(Model model) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
             model.addAttribute("date", formatter.format(this.quesService.getDate()));
-        
         return "date";
     }
     
