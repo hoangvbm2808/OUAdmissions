@@ -109,7 +109,7 @@ CREATE TABLE `department` (
   `education_program` varchar(10000) DEFAULT NULL,
   `website` varchar(45) DEFAULT NULL,
   `introduce_video` varchar(100) DEFAULT NULL,
-  `average_score` double DEFAULT NULL,
+  `average_score` longtext DEFAULT NULL,
   `typeoftrainning_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_department_type_idx` (`typeoftrainning_id`),
