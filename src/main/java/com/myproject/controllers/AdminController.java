@@ -10,6 +10,7 @@ import com.myproject.service.CategoryService;
 import com.myproject.service.PostService;
 import com.myproject.service.QuestionService;
 import com.myproject.service.TypeOfTrainningService;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,19 +80,8 @@ public class AdminController {
         return "redirect:/admin/setdate";
     }
 
-    @RequestMapping("/admin/index")
+    @RequestMapping("/admin/index/cate")
     public String index(Model model, @RequestParam Map<String, String> params) {
-//        double post1 = this.postService.getPostByType(1).size()/this.postService.countPosts() * 100;
-//        double post2 = this.postService.getPostByType(2).size()/this.postService.countPosts() * 100;
-//        double post3 = this.postService.getPostByType(3).size()/this.postService.countPosts() * 100;
-//        double post4 = this.postService.getPostByType(4).size()/this.postService.countPosts() * 100;
-//        double post5 = this.postService.getPostByType(5).size()/this.postService.countPosts() * 100;
-//        List<Double> posts = new ArrayList<>();
-//        posts.add(post1);
-//        posts.add(post2);
-//        posts.add(post3);
-//        posts.add(post4);
-//        posts.add(post5);
         if (!params.isEmpty()) {
             int id = Integer.parseInt(params.get("cateId"));
             switch (id) {
@@ -113,10 +103,22 @@ public class AdminController {
                     return "redirect:/admin/user";
                 case 8://Comment
                     return "redirect:/admin/comments";
-                case 9://Comment
+                case 9://Date
                     return "redirect:/admin/setdate";
             }
         }
+        return "index_admin";
+    }
+    
+    @GetMapping("/admin/index")
+    public String home(Model model) {
+        List<Integer> posts = new ArrayList<>();
+        posts.add(this.postService.getPostByType(1, null).size());
+        posts.add(this.postService.getPostByType(2, null).size());
+        posts.add(this.postService.getPostByType(3, null).size());
+        posts.add(this.postService.getPostByType(4, null).size());
+        posts.add(this.postService.getPostByType(5, null).size());
+        model.addAttribute("postbytype", posts);
         return "index_admin";
     }
 }

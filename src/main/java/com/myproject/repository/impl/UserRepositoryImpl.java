@@ -7,6 +7,7 @@ package com.myproject.repository.impl;
 import com.myproject.pojo.User;
 import com.myproject.repository.UserRepository;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -118,7 +119,15 @@ public class UserRepositoryImpl implements UserRepository{
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM User WHERE username=:un");
         q.setParameter("un", username);
-        return (User) q.getSingleResult();
+        try {
+            User u = (User) q.getSingleResult();
+            return u;
+        } catch (NoResultException nre) {
+          return null;
+        }
+        
+         
+        
     }
 
     @Override

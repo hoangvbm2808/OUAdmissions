@@ -57,6 +57,18 @@ public class ApiUserController {
         this.userService.deleteUser(id);
     }
     
+    @GetMapping("/username/{username}")
+    @CrossOrigin
+    public ResponseEntity<String> checkUsernameExist(@PathVariable(value = "username") String username) {
+        User u = this.userService.getUserByUserName(username);
+        if(u == null) {
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+            
+        } else {
+            return new ResponseEntity<>("Username is exist", HttpStatus.OK);
+        }
+    }
+    
     @GetMapping("/test/")
     @CrossOrigin
     public ResponseEntity<String> test(Principal pricipal) {
@@ -69,7 +81,6 @@ public class ApiUserController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
     public ResponseEntity<Object> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
-//        System.out.println("===================="+user.getUsername());
         User user = this.userService.addUserAPI(params, avatar);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

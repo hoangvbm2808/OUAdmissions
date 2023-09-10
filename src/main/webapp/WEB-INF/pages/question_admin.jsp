@@ -35,19 +35,17 @@
         <thead class="table-dark">
             <tr>
                 <!--<th class="text-center" style="width:15%">Id  </th>-->
-                <th class="text-center" colspan="2" style="width:40%">Nội dung</th>
-                <th class="text-center" colspan="2" style="width:30%">Livestream</th>
-                <th class="text-center" colspan="2" style="width:20%">Người đặt câu hỏi</th>
-                <th class="text-center" colspan="2" style="width:30%">Xóa</th>
+                <th class="text-center" colspan="2" style="width:60%">Nội dung</th>
+                <th class="text-center" style="width:30%">Người đặt câu hỏi</th>
+                <th class="text-center" style="width:10%">Xóa</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach items="${questions}" var="d">
                 <tr>
                     <td colspan="2">${d.content}</td>
-                    <td colspan="2">${d.livestreamId.title}</td>
-                    <td colspan="2">${d.userId.firstName}</td>
-                    <td colspan="2" class="text-center">
+                    <td class="text-center">${d.userId.firstName}</td>
+                    <td class="text-center">
                         <c:url value="/api/questions/${d.id}" var="apiDelete" />
                         <button class="btn btn-danger text-center" onclick="deleteQuestion('${apiDelete}')">Xóa</button>
                     </td>

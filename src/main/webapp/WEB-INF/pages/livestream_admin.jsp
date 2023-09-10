@@ -35,8 +35,9 @@
     <table class="table table-hover rounded-pill" style="width:100%">
         <thead class="table-dark">
             <tr>
-                <th class="text-center" style="width:15%">Tên thông báo livestream</th>
+                <th class="text-center" style="width:20%">Tiêu đề Livestream</th>
                 <th class="text-center" colspan="2" style="width:50%">Nội dung</th>
+                <th class="text-center" style="width:10%">Ngày phát</th>
                 <th class="text-center" style="width:10%">Cập nhật</th>
                 <th class="text-center" style="width:10%">Xóa</th>
             </tr>
@@ -45,14 +46,15 @@
             <c:forEach items="${livestreams}" var="d">
                 <tr>
                     <td class="text-center">${d.title}</td>
-                    <td colspan="2">${d.content}</td>
+                    <td class="text-center" colspan="2">${d.content}</td>
+                    <td class="text-center">${d.date}</td>
                     <c:url value="/admin/livestreams/add/${d.id}" var="api" />
                     <td class="text-center">
                         <a href="${api}" class=" btn btn-success">Cập nhật</a>
                     </td>
                     <td class="text-center">
                         <c:url value="/api/admin/livestreams/${d.id}" var="apiDelete" />
-                        <button class="btn btn-danger text-center" onclick="deleteDepartment('${apiDelete}')">Xóa</button>
+                        <button class="btn btn-danger text-center" onclick="deleteLivestream('${apiDelete}')">Xóa</button>
                     </td>
                 </tr>
             </c:forEach>
