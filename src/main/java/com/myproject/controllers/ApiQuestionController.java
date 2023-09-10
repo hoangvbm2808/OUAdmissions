@@ -76,6 +76,16 @@ public class ApiQuestionController {
     
     @PostMapping("/questions/")
     public ResponseEntity<Object> add(@RequestBody Question question) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        User u = (User) this.userService.getUserById(3);
+        if (this.questionService.addOrUpdateQuestion(question) != null) {
+            if (question.getAnswer() == 0) {
+            message.setTo("jennythanh2001@gmail.com"); //Gửi tới mail người tư vấn dưới sql
+            message.setSubject("Có sinh viên đặt câu hỏi mới!!!"); //Tựa đề mail
+            message.setText(question.getContent()); //Nội dung của mail
+            this.emailSender.send(message); //Gửi
+            }
+        }
         return new ResponseEntity<>(this.questionService.addOrUpdateQuestion(question),HttpStatus.OK);
     }
     
