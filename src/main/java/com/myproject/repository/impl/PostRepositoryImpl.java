@@ -58,7 +58,8 @@ public class PostRepositoryImpl implements PostRepository {
         Predicate p = b.equal(rPost.get("typeoftrainningId"), typeoftrainningId);
         predicates.add(p);
         q.where(predicates.toArray(Predicate[]::new));
-
+        q.orderBy(b.desc(rPost.get("id")));
+        
         Query query = s.createQuery(q);
         
         if (params != null) {
