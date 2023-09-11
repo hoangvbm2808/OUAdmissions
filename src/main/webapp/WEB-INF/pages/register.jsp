@@ -131,7 +131,7 @@
         <form:input type="text" placeholder="Nhập tên tài khoản" path="username" required="required" autocomplete="off" id="username"/>
 
         <c:choose>
-            <c:when test="${user.password == null}">
+            <c:when test="${user.id == null}">
                 <label for="password"><b>Mật khẩu</b></label>
                 <form:errors path="password" element="div" cssClass="text-danger" />
                 <form:input type="password" placeholder="Nhập mật khẩu" path="password" required="required" autocomplete="off" id="password"/>

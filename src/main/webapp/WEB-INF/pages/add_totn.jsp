@@ -26,7 +26,7 @@
             <div class="mt-3">
                 <label for="title"><b>Tên hệ đào tạo</b></label>
                 <div class="form-floating mb-3">
-                    <form:input type="text" class="form-control" path="name" id="name"  />
+                    <form:input type="text" class="form-control" required="required" path="name" id="name"  />
 
                 </div>
             </div>

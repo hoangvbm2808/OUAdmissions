@@ -110,11 +110,18 @@ public class LiveStreamRepositoryImpl implements LiveStreamRepository{
         return query.getResultList();
     }
     
-     @Override
-    public int countLiveStreams() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("SELECT COUNT(*) FROM Livestream");
-        return Integer.parseInt(q.getSingleResult().toString());
+    @Override
+    public long countLiveStreams() {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<Long> q = b.createQuery(Long.class);
+
+        Root r = q.from(Livestream.class);
+        q.select(b.count(r));
+
+        long count = session.createQuery(q).uniqueResult();
+        return count;
+//        return Integer.parseInt(q.getSingleResult().toString());
     }
     
     @Override

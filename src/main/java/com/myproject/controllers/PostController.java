@@ -59,7 +59,7 @@ public class PostController {
             model.addAttribute("typeOfTrainningId",typeOfTrainningId );
         }
         model.addAttribute("posts", this.postService.getPosts(params));
-        int count = this.postService.countPosts();
+        long count = this.postService.countPosts();
         int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
         model.addAttribute("pages", Math.ceil(count*1.0/pageSize));
         

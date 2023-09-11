@@ -18,7 +18,7 @@ public interface PostRepository {
     List<Object> get5PostByType(int typeoftrainningId);
     Post getPostById(int id);
     List<Post> getPosts(Map<String, String> params);
-    int countPosts();
+    long countPosts();
 //    List<Post> getPostsByPage(Map<String, String> params, int page);
 
     boolean addOrUpdatePost(Post p);

@@ -26,7 +26,7 @@
             <div class="mt-3">
                 <label for="title"><b>Tên khoa</b></label>
                 <div class="form-floating mb-3">
-                    <form:input type="text" class="form-control" path="name" id="name"  />
+                    <form:input type="text" class="form-control" path="name" required="required" id="name"  />
 
                 </div>
             </div>
@@ -54,33 +54,33 @@
             <div class="mt-3">
                 <label for="content"><b>Mô tả</b></label>
                 <div class="mb-3">
-                    <form:textarea rows="5" class="form-control" path="description" id="description"/>
+                    <form:textarea rows="5" class="form-control" path="description" required="required" id="description"/>
                 </div>
             </div>
 
             <div class="mt-3">
                 <label for="content"><b>Website</b></label>
                 <div class="form-floating mb-3">
-                    <form:textarea class="form-control" path="website" id="website"/>
+                    <form:textarea class="form-control" path="website" required="required" id="website"/>
                 </div>
             </div>
 
             <div class="mt-3">
                 <label for="content"><b>Điểm chuẩn</b></label>
                 <div class="form-floating mb-3">
-                    <form:textarea rows="5" class="form-control" path="averageScore" id="averageScore"/>
+                    <form:textarea rows="5" class="form-control" path="averageScore" required="required" id="averageScore"/>
                 </div>
             </div>
 
             <div class="mt-3">
                 <label for="content"><b>Chương trình đào tạo</b></label>
                 <div class="mb-3">
-                    <form:textarea rows="5" class="form-control" path="educationProgram" id="educationProgram"/>
+                    <form:textarea rows="5" class="form-control" path="educationProgram" required="required" id="educationProgram"/>
                 </div>
             </div>
 
             <label for="file">Chọn video giới thiệu:</label>
-            <form:input type="file" id="file" path="file" accept="video/*"/>
+            <form:input type="file" id="file" path="file" required="required" accept="video/*"/>
 
 
             <div class="form-floating mb-3 mt-3">

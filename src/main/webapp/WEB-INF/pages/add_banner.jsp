@@ -26,7 +26,7 @@
             <div class="mt-3">
                 <label for="title"><b>Tiêu đề</b></label>
                 <div class="mb-3">
-                    <form:input type="text" class="form-control" path="title" id="title"  />
+                    <form:input type="text" class="form-control" path="title" required="required" id="title"  />
 
                 </div>
             </div>

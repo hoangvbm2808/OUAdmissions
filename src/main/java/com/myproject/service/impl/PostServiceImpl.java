@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public int countPosts() {
+    public long countPosts() {
         return this.postRepo.countPosts();
     }
     

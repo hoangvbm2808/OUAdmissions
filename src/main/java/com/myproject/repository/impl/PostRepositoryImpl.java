@@ -139,10 +139,19 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public int countPosts() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("SELECT COUNT(*) FROM Post");
-        return Integer.parseInt(q.getSingleResult().toString());
+    public long countPosts() {
+//        Session s = this.factory.getObject().getCurrentSession();
+//        Query q = s.createQuery("SELECT COUNT(*) FROM Post");
+//        return Integer.parseInt(q.getSingleResult().toString());
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<Long> q = b.createQuery(Long.class);
+
+        Root r = q.from(Post.class);
+        q.select(b.count(r));
+
+        long count = session.createQuery(q).uniqueResult();
+        return count;
     }
 
     @Override

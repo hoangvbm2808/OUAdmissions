@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public int countComment() {
+    public long countComment() {
         return this.commentRepo.countComment();
     }
     
