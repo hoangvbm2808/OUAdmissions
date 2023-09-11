@@ -26,7 +26,7 @@
             <div class="mt-3">
                 <label for="title"><b>Tiêu đề</b></label>
                 <div class="form-floating mb-3">
-                    <form:input type="text" class="form-control" path="title" id="title"  />
+                    <form:input type="text" class="form-control" required="required" path="title" id="title"  />
 
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="mt-3">
                 <label for="typeoftrainningId"><b>Hệ đào tạo</b></label>
                 <div class="form-floating mt-1">
-                    <form:select class="form-select" id="type" name="type" path="typeoftrainningId.id">
+                    <form:select class="form-select" id="type" name="type" required="required" path="typeoftrainningId.id">
                         <c:forEach items="${types}" var="t">
                             <c:choose>
                                 <c:when test="${t.id == post.typeoftrainningId.id}">

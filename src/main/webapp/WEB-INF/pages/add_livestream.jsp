@@ -20,26 +20,26 @@
         </c:if>
         <hr>
         <form:form action="${action}" method="post" modelAttribute="livestream">
-            <%--<form:errors path="*" element="div" cssClass="alert alert-danger" />--%>
+            <form:errors path="*" element="div" cssClass="alert alert-danger" />
 
             <form:hidden path="id" />
             <div class="mt-3">
                 <label for="title"><b>Tên thông báo livestream</b></label>
                 <div class="form-floating mb-3">
-                    <form:input type="text" class="form-control" path="title" id="title"  />
+                    <form:input type="text" class="form-control" path="title" required="required" id="title"  />
                 </div>
             </div>
 
             <div class="mt-3">
                 <label for="content"><b>Nội dung</b></label>
                 <div class="mb-3">
-                    <form:textarea rows="5" class="form-control" path="content" id="content"/>
+                    <form:textarea rows="5" class="form-control" path="content" required="required" id="content"/>
                 </div>
             </div>
             <div class="mt-3">
                 <label for="dod">Hạn cho phép đặt câu hỏi:</label>
                 <div class="mb-3">
-                    <form:input type="date" id="date" path="date"/>
+                    <form:input type="date" id="date" required="required" path="date"/>
                 </div>
             </div>
             <div class="form-floating mb-3 mt-3">
