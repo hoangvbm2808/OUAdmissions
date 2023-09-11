@@ -79,10 +79,22 @@ public class CommentRepositoryImpl implements CommentRepository{
 
     @Override
     public List<Object> getCommentByReply(int reply) {
-        Session s = this.factory.getObject().openSession();
-        Query q = s.createQuery("FROM Comment where reply = :reply");
-        q.setParameter("reply", reply);
-        return q.getResultList();
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
+        List<Predicate> predicates = new ArrayList<>();
+        Root rComment = q.from(Comment.class);
+        q.select(rComment);
+
+        Predicate p = b.equal(rComment.get("reply"), reply);
+        predicates.add(p);
+        q.where(predicates.toArray(Predicate[]::new));
+
+        Query query = s.createQuery(q);
+        return query.getResultList();
+//        Query q = s.createQuery("FROM Comment where reply = :reply");
+//        q.setParameter("reply", reply);
+//        return query.getResultList();
     }
     
     @Override
@@ -144,10 +156,16 @@ public class CommentRepositoryImpl implements CommentRepository{
     }
 
     @Override
-    public int countComment() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("SELECT COUNT(*) FROM Comment");
-        return Integer.parseInt(q.getSingleResult().toString());
+    public long countComment() {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = session.getCriteriaBuilder();
+        CriteriaQuery<Long> q = b.createQuery(Long.class);
+
+        Root r = q.from(Comment.class);
+        q.select(b.count(r));
+
+        long count = session.createQuery(q).uniqueResult();
+        return count;
     }
     
 }

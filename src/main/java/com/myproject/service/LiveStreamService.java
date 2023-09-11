@@ -17,7 +17,7 @@ public interface LiveStreamService {
     Object getLiveById(int id);
     boolean addLive(Livestream l);
     List<Livestream> getLivestreams(Map<String, String> params);
-    int countLiveStreams();
+    long countLiveStreams();
     boolean deleteLive(int id);
     
 }

@@ -35,7 +35,7 @@ public class CommentController {
     @GetMapping("/admin/comments")
     public String index(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("comments", this.cmtService.getComments(params));
-        int count = this.cmtService.countComment();
+        long count = this.cmtService.countComment();
         int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
         model.addAttribute("pages", Math.ceil(count*1.0/pageSize));
         

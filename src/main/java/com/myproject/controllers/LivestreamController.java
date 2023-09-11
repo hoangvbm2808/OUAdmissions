@@ -50,7 +50,7 @@ public class LivestreamController {
     public String index(Model model, @RequestParam Map<String, String> params) {
 
         model.addAttribute("livestreams", this.liveStreamService.getLivestreams(params));
-        int count = this.liveStreamService.countLiveStreams();
+        long count = this.liveStreamService.countLiveStreams();
         int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
         model.addAttribute("pages", Math.ceil(count * 1.0 / pageSize));
 

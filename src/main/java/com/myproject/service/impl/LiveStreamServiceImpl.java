@@ -43,7 +43,7 @@ public class LiveStreamServiceImpl implements LiveStreamService{
     }
 
     @Override
-    public int countLiveStreams() {
+    public long countLiveStreams() {
         return this.liveRepo.countLiveStreams();
     }
 

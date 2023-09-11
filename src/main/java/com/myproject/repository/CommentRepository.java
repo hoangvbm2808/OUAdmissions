@@ -20,5 +20,5 @@ public interface CommentRepository {
      List<Object> getCommentByReply(int reply);
      boolean deleteComment(int id);
      Comment getCommentById(int cmtId);
-     int countComment();
+     long countComment();
 }

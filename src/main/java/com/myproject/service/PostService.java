@@ -19,7 +19,7 @@ public interface PostService {
     List<Object> get5PostByType(int typeoftrainningId);
     Post getPostById(int id);
     List<Post> getPosts(Map<String, String> params);
-    int countPosts();
+    long countPosts();
     boolean addOrUpdatePost(Post p);
     boolean deletePost(int id);
 }
